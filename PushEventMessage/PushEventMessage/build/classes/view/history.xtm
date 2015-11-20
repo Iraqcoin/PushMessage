@@ -1,0 +1,22 @@
+<div class="datagrid">
+    <a class="btn fixed-right" href="/push?action=register">Push &amp; Register</a>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Request id</th>
+                <th>App_id</th>
+                <th>Platform</th>
+                <th>Found</th>
+                <th>Pushed</th>
+                <th>Failed</th>
+                <th>Status</th>
+                <th>Request</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{history_list}}
+        </tbody>
+    </table>
+</div>

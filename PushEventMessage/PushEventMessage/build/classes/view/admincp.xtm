@@ -1,0 +1,25 @@
+<div class="datagrid">
+    <a class="btn fixed-right" href="/push?action=register">Push &amp; Register</a>
+    
+    <p class="api_key">API Key: {{api_key}}</p>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>SDK Id</th>
+                <th>App version</th>
+                <th>Os version</th>
+                <th>SDK version</th>
+                <th>Package name</th>
+                <th>App user</th>
+                <th>Zalo ID</th>
+                <th>Created at</th>
+                <th>Updated at</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{device_list}}
+        </tbody>
+    </table>
+</div>

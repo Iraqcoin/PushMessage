@@ -1,0 +1,196 @@
+<div ng-controller="setting">
+    
+    <div id="header">
+        <div class="header-inside">
+            <h1 class="logo"><a href="#">Zalo</a></h1>
+            <a class='dropdown-button btn' href='#' data-activates='dropdown1' ng-click="change()"><p>[[$root.selectedApp.name]]</p><span>PROD</span></a>
+            
+            <ul style="display: none; width: 200px; position: absolute; top: 0px; left: 46px; opacity: 1;" class='dropdown-content' ng-class="{showhint: dropdown.active === true}">
+                
+                <li ng-repeat="app in appss" style="border-bottom: 1px solid #4eb5e9;"><a href="#!" ui-sref="appInfo({id: app.id})" ng-click="change()"><p>[[app.name]]</p><span>PROD</span></a></li>
+                
+                <li ng-repeat="app in appss" style="border-bottom: 1px solid #4eb5e9;"><a href="#!" ui-sref="appInfo({id: app.id})" ng-click="change()"><p>[[app.name]]</p><span>PROD</span></a></li>
+
+                <li ng-repeat="app in appss" style="border-bottom: 1px solid #4eb5e9;"><a href="#!" ui-sref="appInfo({id: app.id})" ng-click="change()"><p>[[app.name]]</p><span>PROD</span></a></li>
+
+            </ul>
+
+            <div class="wrapper">
+                <ul class="menu">
+                    <li ui-sref="appInfo($root.selectedApp)"><a href="#"><span class="ic ic-core"></span>Core</a></li>
+                    <li ui-sref="push($root.selectedApp)"><a href="#"><span class="ic ic-push"></span>Push</a></li>
+                    <li><a href="#" class="active"><span class="ic ic-settings"></span>Settings</a></li>
+                </ul>
+            </div>
+            <div class="user"><a href="#"><img src="http://placehold.it/24x24">Nguyen Hoai Bao</a></div>
+        </div>
+    </div>
+    <!--End header-->
+
+    <div id="menu-right">
+        <ul class="collapsible" data-collapsible="accordion">
+            <li ng-class="{active: tab == 'devices'}">
+                <div class="collapsible-header" ng-class="{active: tab == 'devices'}" ng-click="tab = 'devices'"><span class="ic ic-data"></span>Devices</div>
+            </li>
+            <li ng-class="{active: tab == 'scheduled'}">
+                <div class="collapsible-header" ng-class="{active: tab == 'scheduled'}" ng-click="tab = 'scheduled'"><span class="ic ic-cloudcode"></span>Scheduled</div>          
+            </li>
+            <li ng-class="{active: tab == 'history'}" ng-click="tab = 'history'">
+                <div class="collapsible-header" ng-class="{active: tab == 'history'}" ng-click="tab = 'history'"><span class="ic ic-webhooks"></span>History</div>
+            </li>
+        </ul>
+    </div>
+    <!--End menu-right-->
+
+
+    <div class="content-full">
+        <div class="wrapper">
+            <div class="row-button clearfix" style="border-bottom:#03a6fa solid 1px;">
+                <h3>Setting for push notifications</h3>
+                <a href="#" class="btn btn-stroke send-push back" ng-click="backFN()">Back</a>         
+            </div>
+            <ul class="list-noti">         
+                <!--Setting-->
+                <li>
+                    <div class="title-app">
+                        <h2>Write Setting Your App</h2>
+                        <p class="time">The best campains use short and direct messaging</p>
+                    </div>
+                    <ul class="list-control">
+
+                        <li class="clearfix">
+                            <p style="width:30%;"><b>Select a property</b></p>
+                            <div class="switch non-float"  style="margin-left: 10px;">
+                                <label>
+                                  GCM
+                                  <input type="checkbox" ng-model="tab" ng-true-value="'apns'" ng-false-value="'gcm'">
+                                  <span class="lever"></span>
+                                  APNs
+                              </label>
+                          </div>
+                      </li>
+
+                      <li ng-show="tab === 'gcm'" style="padding: 5px;">
+                        <table border="0">
+                            <tbody>
+                                <tr class="noBorder">
+                                    <td width="30%" style="padding-left: 30px;">
+                                        Google Api Key: 
+                                    </td>
+                                    <td><input type='text' ng-model="gcm.key" size="30" placeholder="Your Api Key" style="font-size: 15px;"></td>
+                                </tr>
+                                <tr class="noBorder">
+                                    <td>
+                                    </td>
+                                    <td><button id="icon_save" class="btn">Save</button></td>
+                                </tr>
+                            </tbody>
+                        </table>   
+                    </li>
+
+                    <li ng-show="tab === 'apns'" style="padding: 5px;">
+                           <!--  <input size="35px" type="text" placeholder="Your title here..." style="margin-bottom: 10px;font-size:15px;" />
+                            <textarea placeholder="Your message here..."></textarea>
+                            <a href="#" id="icon" class="btn send-push back"> Push</a>   -->
+                            <table border="0">
+                                <tbody>
+                                    <tr class="noBorder">
+                                        <td width="30%" style="padding-left: 30px;">
+                                            SSL key file: 
+                                        </td>
+                                        <td>
+                                            <span class="btn btn-stroke btn-file">
+                                                <span style="font-weight: bold; font-size: 16px;">Browse...</span><input type="file" nv-file-select="" uploader="uploader"/>
+                                            </span>
+                                            <br>
+                                            <span ng-show="!apns.hasSslKey" style="font-size: 12px;color:#ec971f;">You haven't set SSL key file yet.</span>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="noBorder">
+                                        <td style="padding-left: 35px;">File key: </td>
+                                        <td><input type='text' ng-model="apns.key" name="ssl-file" placeholder="Your File key" style="font-size:15px;" size="30"/></td>
+                                    </tr>
+
+                                    <tr class="noBorder">
+                                        <td></td>
+                                        <td><button id="icon_save" class="btn" ng-click="uploader.uploadAll()">Save <span ng-show="uploader.progress > 0 && uploader.progress < 100"> </span></button></td>
+                                    </tr>
+
+                                </tbody>
+                            </table>       
+                        </li>   
+
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- <div id="body">
+
+        <div class="main-menu">
+            <ul>
+                <li ng-class="{active: tab == 'gcm'}" ng-click="tab = 'gcm'">
+                    <a href="" ><span class="ic ic-jobs"></span>GCM</a>
+                </li>
+                <li ng-class="{active: tab == 'apns'}" ng-click="tab = 'apns'">
+                    <a href="" ><span class="ic ic-jobs"></span>APNs</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="setting-content" ng-show="tab === 'gcm'">
+            <div>
+                <table class="form">
+                    <tr>
+                        <td>Google Api Key: </td>
+                        <td><input type='text' ng-model="gcm.key" ></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><button class="btn">Save</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="setting-content" ng-show="tab === 'apns'">
+            <div>
+                <table class="form">
+                    <tr>
+                        <td>SSL key file: </td>
+                        <td>
+                            <input type="file" nv-file-select="" uploader="uploader" />
+                            <span ng-show="!apns.hasSslKey">You haven't set SSL key file yet.</span>
+                        </td>
+                        
+                    </tr>
+                    <tr>
+                        <td>File key: </td>
+                        <td><input type='text' ng-model="apns.key" name="ssl-file"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><button class="btn" ng-click="uploader.uploadAll()">Save <span ng-show="uploader.progress > 0 && uploader.progress < 100"> ([[uploader.progress]]%)</span></button></td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+
+    </div> -->
+
+    <div id="footer">
+        <ul>
+            <li><a href="#">Docs</a></li>
+            <li><a href="#">Billing</a></li>
+            <li><a href="#">Downloads</a></li>
+            <li><a href="#">Help</a></li>
+            <li><a href="#">Status</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Zalo</a></li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+</div>

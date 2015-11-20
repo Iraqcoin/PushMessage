@@ -1,0 +1,23 @@
+<div ng-controller="test">
+    <input type="text" ng-model="userId" />
+    <input type="password" ng-model="pass" />
+    <button ng-click="login()">login</button>
+    <hr />
+    <button ng-click="logout()">Logout</button>
+    <hr />
+    <button ng-click="getProfile()">get Profile</button>
+    <hr />
+    <button ng-click="getApps()">getApps</button>
+    <hr />
+    <input type="text" ng-model="appId" />
+    <input type="text" ng-model="platform" />
+    <input type="text" ng-model="requestId" />
+    <button ng-click="getDevicePage()">getDevicePage</button>
+    <button ng-click="getScheduledPage()">getScheduledPage</button>
+    <button ng-click="getScheduledCount()">getScheduledCount</button>
+    <button ng-click="getHistoryPage()">getHistoryPage</button>
+    <button ng-click="getPush()">getPush</button>
+    <button ng-click="countDevice()">countDevice</button>
+    <hr />
+    [[output]]
+</div>

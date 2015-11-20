@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width initial-scale=1.0 maximum-scale=1.0 user-scalable=yes" />
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="shortcut icon" href="favicon.ico">
+        <title>Push</title>
+        
+                <link rel="stylesheet" href="{{app_domain}}/public/libs/css/base.css">  
+                <link rel="stylesheet" href="{{app_domain}}/public/libs/css/layout.1.0.3.css">  
+                <link rel="stylesheet" href="{{app_domain}}/public/libs/css/bootstrap.css">  
+        <!--        <link rel="stylesheet" href="{{app_domain}}/public/libs/css/ng-tags-input.min.css">  
+                <link rel="stylesheet" href="{{app_domain}}/public/libs/css/jquery.datetimepicker.css">  
+                <link rel="stylesheet" href="{{app_domain}}/public/admin/css/reset.css">
+        <!--<link rel="stylesheet" href="{{app_domain}}/public/admin/css/materialize.css">-->
+        <!--<link rel="stylesheet" href="{{app_domain}}/public/admin/css/default.css">-->  
+        <!--<link rel="stylesheet" href="{{app_domain}}/public/admin/css/layout.css">-->  
+        <!--<link href="{{app_domain}}/public/admin/css/base.css" rel="stylesheet" />-->
+
+        <!--        <script type="text/javascript" src="{{app_domain}}/public/libs/angular.min.js"></script>
+                <script type="text/javascript" src="{{app_domain}}/public/libs/angular-ui-router.min.js"></script>-->
+        <script type="text/javascript" src="{{app_domain}}/public/libs/jquery.min.js"></script>
+        <!--        <script type="text/javascript" src="{{app_domain}}/public/libs/ng-tags-input.min.js"></script>
+                <script type="text/javascript" src="{{app_domain}}/public/libs/jquery.datetimepicker.full.min.js"></script>
+                <script type="text/javascript" src="{{app_domain}}/public/libs/angular-file-upload.min.js"></script>-->
+
+        <script id="open-widget-sdk" src="http://dev.id.zaloapp.com/open-widget?f=76SHAR10002"></script>
+        <script>var APP_DOMAIN = '{{app_domain}}';</script>
+    </head>
+    <body >
+		<div class="login-page">
+            <h1><image src="/public/admin/img/logo.jpg"></image></h1>
+			<div class="alert alert-error" id="error-msg" style="display:none;"></div>
+            <div id="zid_content" class="form-login">
+                {{CONTENT}}
+            </div>
+        </div>
+
+
+
+
+
+        
+
+        <script type="text/javascript">
+            function showLoginError(error, msg) {
+                console.log(error);
+                console.log(msg);
+                if (error >= 0) {
+                    window.location = APP_DOMAIN + "/admin";
+                } else {
+                    if (error === -113) {
+                        location.reload();
+                    } else {
+                        alert(msg);
+                    }
+                }
+            }
+            ;
+//            document.domain = "zaloapp.com";
+        </script>
+    </body>
+</html>

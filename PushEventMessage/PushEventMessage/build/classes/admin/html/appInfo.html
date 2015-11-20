@@ -1,0 +1,306 @@
+<div ng-controller="appInfo">
+    <!-- <div id="header">
+        <div class="logo">
+            <a ui-sref="dashboard">
+                 <img ng-src="[[app_domain]]/public/admin/img/logo.jpg"/>
+            </a>
+        </div>
+        <div class="title">
+            [[$root.selectedApp.name]]
+        </div>
+        <div class="tabs">
+            <ul>
+                <li class="active"><span class="ic ic-core"></span> Info</li>
+                <li ui-sref="push($root.selectedApp)"><span class="ic ic-push"></span>Push</li>
+                <li ui-sref="setting($root.selectedApp)"><span class="ic ic-settings"></span>Setting</li>
+            </ul>
+        </div>
+        <div class="user" ng-click="_showMenu=2" click-outside="_showMenu=_showMenu-1">
+            <span menu-id="user-menu"><img class="avatar" src="[[$root.user.avatar]]">[[$root.user.name]]</span>
+            <div id="user-menu" class="menu" ng-class="{active: (_showMenu>0)}">
+                <ul>
+                    <li><a href="[[logoutUrl]]">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+-->
+<div id="header">
+    <div class="header-inside">
+        <h1 class="logo"><a href="#">Zalo</a></h1>
+
+        <a class='dropdown-button btn' href='' ng-click="change()"><p>[[$root.selectedApp.name]]</p><span>PROD</span></a>
+
+        <ul style="display: none; width: 200px; position: absolute; top: 0px; left: 46px; opacity: 1;" class='dropdown-content' ng-class="{showhint: dropdown.active === true}">
+
+            <li ng-repeat="app in appss" style="border-bottom: 1px solid #4eb5e9;"><a href="#!" ui-sref="appInfo({id: app.id})" ng-click="change()"><p>[[app.name]]</p><span>PROD</span></a></li>
+
+            <li ng-repeat="app in appss" style="border-bottom: 1px solid #4eb5e9;"><a href="#!" ui-sref="appInfo({id: app.id})" ng-click="change()"><p>[[app.name]]</p><span>PROD</span></a></li>
+
+            <li ng-repeat="app in appss" style="border-bottom: 1px solid #4eb5e9;"><a href="#!" ui-sref="appInfo({id: app.id})" ng-click="change()"><p>[[app.name]]</p><span>PROD</span></a></li>
+
+        </ul>
+
+        <div class="wrapper">
+            <ul class="menu">
+                <li><a href="#" class="active"><span class="ic ic-core"></span>Core</a></li>
+                <li ui-sref="push($root.selectedApp)"><a href="#"><span class="ic ic-push"></span>Push</a></li>
+                <li ui-sref="setting($root.selectedApp)"><a href="#"><span class="ic ic-settings"></span>Settings</a></li>
+            </ul>
+        </div>
+
+        <div class="user"><a href="[[logoutUrl]]"><img ng-src="[[$root.user.avatar]]">[[$root.user.name]]</a></div>
+    </div>
+</div>
+<!--End header-->
+
+<div id="menu-right">
+    <ul class="collapsible" data-collapsible="accordion">
+        <li ng-class="{active: tab == 'devices'}">
+            <div class="collapsible-header" ng-class="{active: tab == 'devices'}" ng-click="tab = 'devices'"><span class="ic ic-data"></span>Devices</div>
+        </li>
+        <li ng-class="{active: tab == 'scheduled'}">
+            <div class="collapsible-header" ng-class="{active: tab == 'scheduled'}" ng-click="tab = 'scheduled'"><span class="ic ic-cloudcode"></span>Scheduled</div>          
+        </li>
+        <li ng-class="{active: tab == 'history'}" ng-click="tab = 'history'">
+            <div class="collapsible-header" ng-class="{active: tab == 'history'}" ng-click="tab = 'history'"><span class="ic ic-webhooks"></span>History</div>
+        </li>
+    </ul>
+</div>
+<!--End menu-right-->
+
+
+<div class="content-full" ng-controller="deviceTable" ng-show="tab == 'devices'">
+    <div class="wrapper box">
+        <div class="row-button clearfix" style="border-bottom:#03a6fa solid 1px;">
+            <h3>Devices Listing notifications</h3>
+            <a class="btn btn-stroke" ng-click="platform='android'; reload();" ng-class="{'active': (platform=='android')}">Android</a>
+            <a class="btn btn-stroke" ng-click="platform='ios'; reload();" ng-class="{'active': (platform=='ios')}">IOS</a>
+            <a href="#" class="btn btn-stroke" ui-sref="push($root.selectedApp)">+ Row</a>
+            <a href="#" class="btn btn-stroke btn-disable">- Row</a>
+            <input type="text" class="btn btn-stroke more" placeholder="Search here" ng-model="search" />
+            <a href="#" class="fr btn-left" ng-click="platform='android'; reload();"><span class="ic ic-refresh"></span></a>
+            <a href="#" class="fr" style="margin-right:10px;" ng-click="exportData()"><span class="ic ic-download"></span></a>            
+        </div>
+        <div id="exportable">
+        <table class="bordered">
+            <thead>
+                <tr>
+                    <th style="padding-left: 15px;">
+                        <p class="check">
+                            <input type="checkbox" class="filled-in" id="filled-in-box" checked="true" />
+                            <label for="filled-in-box"></label>
+                        </p>
+                    </th>
+                    <th>ID <span>string</span></th>
+                    <th>Token <span>string</span></th>
+                    <th>App Version <span>string</span></th>
+                    <th>Os Version <span>string</span></th>
+                    <th>Sdk Version <span>string</span></th>
+                    <th>Package <span>number</span></th>
+                    <th>Zalo Id <span>string</span></th>
+                    <th>Updated Time <span>datetime</span></th>  
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="device in devices | filter:search">
+                    <td style="padding-left: 20px;">[[$index + 1 + (curPage - 1) * dataOption.selectedOption.id]].</td>
+                    <td>[[device.id]]</td>
+                    <td>[[device.token | limitTo: 40]]  [[device.token.length > 40 ? '...' : '']]</td>
+                    <td ng-bind-html="device.appVersion | highlight:search"></td>
+                    <td ng-bind-html="device.osVersion | highlight:search"></td>
+                    <td ng-bind-html="device.sdkVersion | highlight:search"></td>
+                    <td ng-bind-html="device.packageName | highlight:search"></td>
+                    <td>[[device.zaloId]]</td>
+                    <td>[[device.utime]]</td>  
+                </tr>
+            </tbody>
+        </table>
+        </div>
+        <div class="pagination">
+            <div class="fl">
+                Show 
+                <select name="mySelect" id="mySelect"
+                ng-options="option.name for option in dataOption.availableOptions track by option.id"
+                ng-model="dataOption.selectedOption" ng-change="changedValue(dataOption.selectedOption)"></select>
+                of [[count]] items
+            </div>
+            <div class="fr action">
+                <a href="" ng-click="firstPage()" class="disable"><span class="ic ic-previous2"></span></a>
+                <a href="" ng-click="previousPage()"><span class="ic ic-previous"></span></a>
+                <a href="" ng-click="nextPage()"><span class="ic ic-next"></span></a>
+                <a href="" ng-click="lastPage()"><span class="ic ic-next2"></span></a>
+            </div>
+            <div class="fr">
+                Page 
+                <input type="text" placeholder="1" style="width:40px;text-align:center;color:black;" ng-model="curPage" class="ng-pristine ng-untouched ng-valid">
+                of [[maxPage]]
+            </div>
+        </div>
+    </div>
+</div> <!--End content-full deviceTable-->
+
+
+<div class="content-full" ng-controller="scheduledTable" ng-show="tab == 'scheduled'">
+    <div class="wrapper box">
+        <div class="row-button clearfix" style="border-bottom:#03a6fa solid 1px;">
+            <h3>Scheduled Listing notifications</h3>
+            <a href="#" class="btn btn-stroke" ui-sref="push($root.selectedApp)">+ Row</a>
+            <a href="" class="btn btn-stroke" ng-click="deleteListItem()">- Row</a>
+            <input type="text" class="btn btn-stroke more" placeholder="Search here" ng-model="search" />
+            <a href="#" class="fr btn-left"><span class="ic ic-refresh"></span></a>
+            <a href="#" class="fr" style="margin-right:10px;"><span class="ic ic-download"></span></a>            
+        </div>
+        <table class="bordered">
+            <thead>
+                <tr>
+                    <th style="padding-left: 15px;">
+                        <p class="check">
+                            <input type="checkbox" class="filled-in" id="filled-in-boxx" ng-change="checkAll(item.questID)" ng-model="answers[item.questID]"/>
+                            <label for="filled-in-boxx"></label>
+                        </p>
+                    </th>
+                    <th>Time <span>datetime</span></th>
+                    <th>Platform <span>string</span></th>
+                    <th>Title <span>string</span></th>
+                    <th>Message <span>string</span></th>
+                    <th>Actions <span></span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in data | filter:search">
+                    <td  style="padding-left: 15px;">
+                        <p class="check">
+                            <input type="checkbox" class="filled-in" ng-attr-id="[['filled-in-box' + $index]]" ng-model="deleteItem[$index]" ng-true-value="[[item.id]]" ng-false-value="0" />
+                            <label ng-attr-for="[['filled-in-box' + $index]]"></label>
+                        </p>
+                    </td>                  
+                    <td><div ng-bind-html="item.time | date:'HH:mm dd/MM/yyyy' | highlight:search"></div></td>
+                    <td><div ng-bind-html="item.request.request.platform | highlight:search"></div></td>
+                    <td><div ng-bind-html="item.request.request.data.title | highlight:search"></div></td>
+                    <td><div ng-bind-html="item.request.request.data.message | highlight:search"></div></td>
+                    <td>         <!--<a >edit</a>,-->
+                        <span  ng-click="delete(item.id)"><img ng-src="[[app_domain]]/public/admin/img/delete.png" width="18" height="18"></span>
+                    </td>   
+                </tr>
+            </tbody>
+        </table>
+        <div class="pagination">
+            <div class="fl">
+                Show 
+                <select name="mySelect" id="mySelect"
+                ng-options="option.name for option in dataOption.availableOptions track by option.id"
+                ng-model="dataOption.selectedOption"></select>
+                of [[count]] items
+            </div>
+            <div class="fr action">
+                <a href="" ng-click="firstPage()" class="disable"><span class="ic ic-previous2"></span></a>
+                <a href="" ng-click="previousPage()"><span class="ic ic-previous"></span></a>
+                <a href="" ng-click="nextPage()"><span class="ic ic-next"></span></a>
+                <a href="" ng-click="lastPage()"><span class="ic ic-next2"></span></a>
+            </div>
+            <div class="fr">
+                Page 
+                <input type="text" placeholder="1" style="width:40px;text-align:center;color:black;" ng-model="curPage" class="ng-pristine ng-untouched ng-valid">
+                of [[maxPage]]
+            </div>
+        </div>
+    </div>
+</div> <!--End content-full scheduledTable-->
+
+
+<div class="content-full" ng-controller="historyTable" ng-show="tab == 'history'">
+    <div class="wrapper box">
+        <div class="row-button clearfix" style="border-bottom:#03a6fa solid 1px;">
+            <h3>History Listing notifications</h3>
+            <a href="#" class="btn btn-stroke" ui-sref="push($root.selectedApp)">+ Row</a>
+            <a href="#" class="btn btn-stroke btn-disable">- Row</a>
+            <input type="text" class="btn btn-stroke more" placeholder="Search here" ng-model="search" />
+            <a href="#" class="fr btn-left" ng-click="firstPage()"><span class="ic ic-refresh"></span></a>
+            <a href="#" class="fr" style="margin-right:10px;" ng-click="exportData()"><span class="ic ic-download"></span></a>            
+        </div>
+        <div id="exportableHT">
+        <table class="striped">
+            <thead>
+                <tr>
+                    <th class="center-align" style="padding-left: 15px;">
+                        <p class="check">
+                            <input type="checkbox" class="filled-in" id="filled-in-box" checked="true" />
+                            <label for="filled-in-box"></label>
+                        </p>
+                    </th>
+                    <th class="center-align">Status <span>enum</span></th>
+                    <th class="center-align">Devices <span>string</span></th>
+                    <th class="center-align">Pushed <span>string</span></th>
+                    <th class="center-align">Platform <span>string</span></th>
+                    <th class="center-align">Title <span>string</span></th>
+                    <th class="center-align">Message <span>string</span></th>
+                    <th class="center-align">Time <span>datetime</span></th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in data | filter:search">
+                    <td class="center-align">[[$index + 1 + (curPage - 1)*dataOption.selectedOption.id]].</td>
+                    <td class="center-align">
+                        <span ng-show="item.state ==='DONE'"><img ng-src="[[app_domain]]/public/admin/img/check.png"></span>
+                        <span ng-hide="item.state ==='DONE'">[[item.state]]</span> 
+                    </td>
+                    <td class="center-align">[[item.found]]</td>
+                    <td class="center-align">[[item.pushed]]</td>
+                    
+                    <td class="center-align">
+                        <span ng-show="item.platform ==='android' || item.platform ==='ios'"><img ng-src="[[app_domain]]/public/admin/img/[[item.platform]].png" width="32" height="32"></span>
+                        <span ng-hide="item.platform ==='android' || item.platform ==='ios'">[[item.platform]]</span> 
+                    </td>
+                    <td class="center-align" ng-bind-html="item.request.data.title | limitTo: 50 | highlight:search">[[item.request.data.title.length > 50 ? '...' : '']]</td>
+                    <td class="center-align" ng-bind-html="item.request.data.message | limitTo: 50  | highlight:search">[[item.request.data.message.length > 50 ? '...' : '']]</td>
+                    <td class="center-align">[[item.updated_at | date:'h:mma, dd/MM/yyyy']]</td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+        <div class="pagination" style="z-index: 99999;">
+            <div class="fl" style="padding-left: 20px;">
+                Show 
+                <select name="mySelect" id="mySelect"
+                ng-options="option.name for option in dataOption.availableOptions track by option.id"
+                ng-model="dataOption.selectedOption" ng-change="changedValue(dataOption.selectedOption)"></select>
+                of [[count]] items
+            </div>
+            <div class="fr action">
+                <a href="" ng-click="firstPage()" class="disable"><span class="ic ic-previous2"></span></a>
+                <a href="" ng-click="previousPage()"><span class="ic ic-previous"></span></a>
+                <a href="" ng-click="nextPage()"><span class="ic ic-next"></span></a>
+                <a href="" ng-click="lastPage()"><span class="ic ic-next2"></span></a>
+            </div>
+            <div class="fr">
+                Page 
+                <input type="text" placeholder="1" style="width:40px;text-align:center;color:black;" ng-model="curPage" class="ng-pristine ng-untouched ng-valid">
+                of [[maxPage]]
+            </div>
+        </div>
+    </div>
+</div> <!--End content-full History-->
+
+
+<div class="clear"></div>
+
+<div id="footer" style="z-index:500;">
+       <ul>
+        <li><a href="#">Docs</a></li>
+        <li><a href="#">Billing</a></li>
+        <li><a href="#">Downloads</a></li>
+        <li><a href="#">Help</a></li>
+        <li><a href="#">Status</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Zalo</a></li>
+    </ul>
+    <div class="clear"></div>
+</div>
+
+<script>
+    var s = $(window).height() - 99;;  
+    $( ".box" ).css({"height": s});
+</script>
+
+</div>
