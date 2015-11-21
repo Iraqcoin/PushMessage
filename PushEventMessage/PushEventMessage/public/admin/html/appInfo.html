@@ -54,6 +54,8 @@
 </div>
 <!--End header-->
 
+
+
 <div id="menu-right">
     <ul class="collapsible" data-collapsible="accordion">
         <li ng-class="{active: tab == 'devices'}">
@@ -82,6 +84,7 @@
             <a href="#" class="fr btn-left" ng-click="platform='android'; reload();"><span class="ic ic-refresh"></span></a>
             <a href="#" class="fr" style="margin-right:10px;" ng-click="exportData()"><span class="ic ic-download"></span></a>            
         </div>
+        <div class="line_tran"></div>
         <div id="exportable">
         <table class="bordered" style="font-size: 80%;">
             <thead>
@@ -151,6 +154,7 @@
             <a href="#" class="fr btn-left"><span class="ic ic-refresh"></span></a>
             <a href="#" class="fr" style="margin-right:10px;"><span class="ic ic-download"></span></a>            
         </div>
+        <div class="line_tran"></div>
         <table class="bordered">
             <thead>
                 <tr>
@@ -209,7 +213,7 @@
 </div> <!--End content-full scheduledTable-->
 
 
-<div class="content-full" ng-controller="historyTable" ng-show="tab == 'history'">
+<div class="content-full" ng-controller="historyTable" ng-show="tab == 'history'" style="margin-bottom: 50px;">
     <div class="wrapper box">
         <div class="row-button clearfix" style="border-bottom:#03a6fa solid 1px;">
             <h3>History Listing notifications</h3>
@@ -219,6 +223,7 @@
             <a href="#" class="fr btn-left" ng-click="firstPage()"><span class="ic ic-refresh"></span></a>
             <a href="#" class="fr" style="margin-right:10px;" ng-click="exportData()"><span class="ic ic-download"></span></a>            
         </div>
+        <div class="line_tran"></div>
         <div id="exportableHT">
         <table class="striped">
             <thead>
@@ -285,7 +290,7 @@
 
 <div class="clear"></div>
 
-<!-- <div id="footer" style="z-index:500;">
+<!-- <div id="footer">
        <ul>
         <li><a href="#">Docs</a></li>
         <li><a href="#">Billing</a></li>
@@ -296,8 +301,8 @@
         <li><a href="#">Zalo</a></li>
     </ul>
     <div class="clear"></div>
-</div> -->
-
+</div>
+ -->
 <script>
     var s = $(window).height() - 99;;  
     $( ".box" ).css({"height": s});

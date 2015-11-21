@@ -176,8 +176,16 @@ div.row-button a.active{
     background-position: 5% 50%;
     padding-left: 30px;
 }
-
-
+.line_tran{
+    width: 0px;
+    height: 1px;
+    background: #03A6FA;
+    -webkit-transition: width 1s; /* For Safari 3.1 to 6.0 */
+    transition: width 1s;
+}
+.content-full:hover .line_tran{
+    width: 100%;
+}
  </style>
 
   <script type="text/javascript" src="{{app_domain}}/public/libs/angular.min.js"></script>
