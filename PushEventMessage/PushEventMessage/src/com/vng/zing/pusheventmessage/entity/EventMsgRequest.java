@@ -7,7 +7,7 @@ package com.vng.zing.pusheventmessage.entity;
 
 import com.vng.zing.logger.ZLogger;
 import com.vng.zing.pusheventmessage.thrift.MobilePlatform;
-import com.vng.zing.zalooauth.ZCypher;
+//import com.vng.zing.zalooauth.ZCypher;
 import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 

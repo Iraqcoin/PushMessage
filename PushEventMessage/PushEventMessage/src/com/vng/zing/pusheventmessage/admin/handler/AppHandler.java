@@ -20,7 +20,7 @@ import com.vng.zing.pusheventmessage.entity.DeviceInfo;
 import com.vng.zing.pushnotification.common.MySQLClient;
 import com.vng.zing.pushnotification.dao.impl.DeviceHandler;
 import com.vng.zing.stats.Profiler;
-import com.vng.zing.zalooauthmw.thrift.TAppInfoResult;
+//import com.vng.zing.zalooauthmw.thrift.TAppInfoResult;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

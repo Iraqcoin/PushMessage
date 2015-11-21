@@ -74,8 +74,8 @@
     <div class="wrapper box">
         <div class="row-button clearfix" style="border-bottom:#03a6fa solid 1px;">
             <h3>Devices Listing notifications</h3>
-            <a class="btn btn-stroke" ng-click="platform='android'; reload();" ng-class="{'active': (platform=='android')}">Android</a>
-            <a class="btn btn-stroke" ng-click="platform='ios'; reload();" ng-class="{'active': (platform=='ios')}">IOS</a>
+            <a class="btn btn-stroke android_ic" ng-click="platform='android'; reload();" ng-class="{'active': (platform=='android'),'active_icad': (platform=='android')}">Android</a>
+            <a class="btn btn-stroke ios_ic" ng-click="platform='ios'; reload();" ng-class="{'active': (platform=='ios'),'active_icios': (platform=='ios')}">iOs</a>
             <a href="#" class="btn btn-stroke" ui-sref="push($root.selectedApp)">+ Row</a>
             <a href="#" class="btn btn-stroke btn-disable">- Row</a>
             <input type="text" class="btn btn-stroke more" placeholder="Search here" ng-model="search" />
@@ -83,7 +83,7 @@
             <a href="#" class="fr" style="margin-right:10px;" ng-click="exportData()"><span class="ic ic-download"></span></a>            
         </div>
         <div id="exportable">
-        <table class="bordered">
+        <table class="bordered" style="font-size: 80%;">
             <thead>
                 <tr>
                     <th style="padding-left: 15px;">
@@ -106,7 +106,7 @@
                 <tr ng-repeat="device in devices | filter:search">
                     <td style="padding-left: 20px;">[[$index + 1 + (curPage - 1) * dataOption.selectedOption.id]].</td>
                     <td>[[device.id]]</td>
-                    <td>[[device.token | limitTo: 40]]  [[device.token.length > 40 ? '...' : '']]</td>
+                    <td>[[device.token | limitTo: 20]]  [[device.token.length > 20 ? '...' : '']]</td>
                     <td ng-bind-html="device.appVersion | highlight:search"></td>
                     <td ng-bind-html="device.osVersion | highlight:search"></td>
                     <td ng-bind-html="device.sdkVersion | highlight:search"></td>
@@ -161,13 +161,13 @@
                         </p>
                     </th>
                     <th>Time <span>datetime</span></th>
-                    <th>Platform <span>string</span></th>
-                    <th>Title <span>string</span></th>
-                    <th>Message <span>string</span></th>
-                    <th>Actions <span></span></th>
+                    <th class="center-align">Platform <span>string</span></th>
+                    <th class="center-align">Title <span>string</span></th>
+                    <th class="center-align">Message <span>string</span></th>
+                    <th class="center-align">Actions <span></span></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody style="font-size: 80%;">
                 <tr ng-repeat="item in data | filter:search">
                     <td  style="padding-left: 15px;">
                         <p class="check">
@@ -176,10 +176,10 @@
                         </p>
                     </td>                  
                     <td><div ng-bind-html="item.time | date:'HH:mm dd/MM/yyyy' | highlight:search"></div></td>
-                    <td><div ng-bind-html="item.request.request.platform | highlight:search"></div></td>
-                    <td><div ng-bind-html="item.request.request.data.title | highlight:search"></div></td>
-                    <td><div ng-bind-html="item.request.request.data.message | highlight:search"></div></td>
-                    <td>         <!--<a >edit</a>,-->
+                    <td class="center-align"><div ng-bind-html="item.request.request.platform | highlight:search"></div></td>
+                    <td class="center-align"><div ng-bind-html="item.request.request.data.title | highlight:search"></div></td>
+                    <td class="center-align"><div ng-bind-html="item.request.request.data.message | highlight:search"></div></td>
+                    <td class="center-align">         <!--<a >edit</a>,-->
                         <span  ng-click="delete(item.id)"><img ng-src="[[app_domain]]/public/admin/img/delete.png" width="18" height="18"></span>
                     </td>   
                 </tr>
@@ -238,7 +238,7 @@
                     <th class="center-align">Time <span>datetime</span></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody style="font-size: 80%;">
             <tr ng-repeat="item in data | filter:search">
                     <td class="center-align">[[$index + 1 + (curPage - 1)*dataOption.selectedOption.id]].</td>
                     <td class="center-align">
@@ -285,7 +285,7 @@
 
 <div class="clear"></div>
 
-<div id="footer" style="z-index:500;">
+<!-- <div id="footer" style="z-index:500;">
        <ul>
         <li><a href="#">Docs</a></li>
         <li><a href="#">Billing</a></li>
@@ -296,7 +296,7 @@
         <li><a href="#">Zalo</a></li>
     </ul>
     <div class="clear"></div>
-</div>
+</div> -->
 
 <script>
     var s = $(window).height() - 99;;  

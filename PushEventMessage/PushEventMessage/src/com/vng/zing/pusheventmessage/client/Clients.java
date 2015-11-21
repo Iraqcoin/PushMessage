@@ -19,7 +19,7 @@ import com.vng.zing.pushnotification.dao.impl.EventHandler;
 public class Clients {
 
     public static final MysqlClient sqlDb = new MysqlClient("msgDb");
-    public static final ZOAuthClient zoaClient = new ZOAuthClient("zoauthmw");
+//    public static final ZOAuthClient zoaClient = new ZOAuthClient("zoauthmw");
     
     public static final DeviceDAO deviceDb = new DeviceHandler();
     public static final EventDAO eventDb = new EventHandler();

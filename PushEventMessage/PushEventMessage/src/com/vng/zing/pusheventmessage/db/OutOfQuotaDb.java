@@ -10,7 +10,7 @@ import com.vng.zing.pusheventmessage.client.BackendServiceException;
 import com.vng.zing.pusheventmessage.client.Clients;
 import com.vng.zing.pusheventmessage.common.MsgBuilder;
 import com.vng.zing.stats.Profiler;
-import com.vng.zing.strlist32bm.thrift.StrList32bmService;
+//import com.vng.zing.strlist32bm.thrift.StrList32bmService;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -212,7 +212,7 @@ public class OutOfQuotaDb {
         System.out.println("GET TIME = " + (System.currentTimeMillis() - t));
         System.out.println(ids);
 
-        StrList32bmService service = new StrList32bmService();
-        StrList32bmService.Client client = null;
+//        StrList32bmService service = new StrList32bmService();
+//        StrList32bmService.Client client = null;
     }
 }
