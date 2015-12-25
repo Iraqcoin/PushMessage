@@ -1,226 +1,352 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="PushAdmin">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width initial-scale=1.0 maximum-scale=1.0 user-scalable=yes" />
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="shortcut icon" href="favicon.ico">
-    <title>Push</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width initial-scale=1.0 maximum-scale=1.0 user-scalable=yes" />
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="shortcut icon" href="favicon.ico">
+  <title>Push</title>
 
-  
-   
-    <!--<link rel="stylesheet" href="{{app_domain}}/public/admin/css/reset.css">-->
-    <!--<link rel="stylesheet" href="{{app_domain}}/public/admin/css/materialize.css">-->
-    <!--<link rel="stylesheet" href="{{app_domain}}/public/admin/css/default.css">-->  
-    <!--<link rel="stylesheet" href="{{app_domain}}/public/admin/css/layout.css">-->  
-    <!--<link href="{{app_domain}}/public/admin/css/base.css" rel="stylesheet" />-->
-    
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine">
 
-    <link rel="stylesheet" href="{{app_domain}}/public/lib/css/reset.css">
-    <link rel="stylesheet" href="{{app_domain}}/public/lib/css/materialize.css">
-    <link rel="stylesheet" href="{{app_domain}}/public/lib/css/layout.css"> 
+  <link rel="stylesheet" href="{{app_domain}}/public/lib/css/reset.css">
+  <link rel="stylesheet" href="{{app_domain}}/public/lib/css/materialize.css">
+  <link rel="stylesheet" href="{{app_domain}}/public/lib/css/layout.css"> 
 
   <link rel="stylesheet" href="{{app_domain}}/public/libs/css/ng-tags-input.min.css">
-    <link rel="stylesheet" href="{{app_domain}}/public/libs/css/jquery.datetimepicker.css">
-    <style type="text/css">
-        .row-button clearfix .active{
-            background-color: #03a6fa;
-            color:#ffff;
-        }
+  <link rel="stylesheet" href="{{app_domain}}/public/libs/css/jquery.datetimepicker.css">
 
-        #icon{
-            background-image:url({{app_domain}}/public/admin/img/check_white.png); 
-            background-repeat: no-repeat; 
-            background-position: 7px 10px;
-            margin-left: 225px;
-            padding-left: 30px;
-            margin-top: 7px;
-        }
-
-        #app-noti {
-          position: fixed;
-          top: 710px;
-          right: 350px;
-          float: right;
-          z-index: 999999;
-          font-size: 1em;
-      }
-      #app-noti p {
-          display: box;
-          background-color: #4c5761;
-          color: white;
-          /*border: solid 1px #d14;*/
-          margin: 5px;
-          padding: 10px;
-          width: 200px;
-          border-radius: 3px;
-          word-wrap: break-word;
-      }
-      
-
-#icon_save{
-                background-image:url({{app_domain}}/public/admin/img/check_white.png); 
-                background-repeat: no-repeat; 
-                background-position: 7px 10px;
-                padding-left: 30px;
-                margin-top: 5px;
-            }
-            .wrapper table tr.noBorder  {
-                border-bottom: #d3dce1 solid 0px  !important;
-                padding-bottom: 0px; 
-            }
-            .btn-file {
-                position: relative;
-                overflow: hidden;
-            }
-            .btn-file input[type=file] {
-                position: absolute;
-                top: 0;
-                right: 0;
-                min-width: 100%;
-                min-height: 100%;
-                font-size: 100px;
-                font-weight:bold;
-                text-align: right;
-                filter: alpha(opacity=0);
-                opacity: 0;
-                outline: none;
-                background: white;
-                cursor: inherit;
-                display: block;
-            }
-            .wrapper .list-noti li .list-control li .non-float{
-                float:none;
-            }
-            
-        .showhint{
-            display: block !important;
-        }
-
-        .tag-item{
-            padding:0px !important;
-            width:auto !important;
-        }
-
-        
-div.xdsoft_calendar table {
-    font-size:0.3em !important;
-
-}
-div.xdsoft_calendar table  td{
-    padding:0px !important;
-    margin:0px !important;
-}
+  <link rel="stylesheet" type="text/css" href="{{app_domain}}/public/lib/css/sweetalert.css">
 
 
-.xdsoft_calendar td > div{
+  <style type="text/css">
+    .row-button clearfix .active{
+      background-color: #03a6fa;
+      color:#ffff;
+    }
+    #icon{
+      margin-left: 225px;
+      margin-top: 7px;
+    }
+    #app-noti {
+      position: fixed;
+      top: 710px;
+      right: 350px;
+      float: right;
+      z-index: 999999;
+      font-size: 1em;
+    }
+    #app-noti p {
+      display: box;
+      background-color: #4c5761;
+      color: white;
+      /*border: solid 1px #d14;*/
+      margin: 5px;
+      padding: 10px;
+      width: 200px;
+      border-radius: 3px;
+      word-wrap: break-word;
+    }
+    #icon_save{
+      margin-top: 5px;
+    }
+    .wrapper table tr.noBorder  {
+      border-bottom: #d3dce1 solid 0px  !important;
+      padding-bottom: 0px; 
+    }
+    .btn-file {
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-file input[type=file] {
+      position: absolute;
+      top: 0;
+      right: 0;
+      min-width: 100%;
+      min-height: 100%;
+      font-size: 100px;
+      font-weight:bold;
+      text-align: right;
+      filter: alpha(opacity=0);
+      opacity: 0;
+      outline: none;
+      background: white;
+      cursor: inherit;
+      display: block;
+    }
+    .wrapper .list-noti li .list-control li .non-float{
+      float:none;
+    }
+    
+    .showhint{
+      display: block !important;
+    }
+
+    .tag-item{
+      padding:0px !important;
+      width:auto !important;
+    }
+    
+    div.xdsoft_calendar table {
+      font-size:0.3em !important;
+
+    }
+    div.xdsoft_calendar table  td{
+      padding:0px !important;
+      margin:0px !important;
+    }
+
+
+    .xdsoft_calendar td > div{
       padding-right:5px !important;
-    margin:0px !important;
-}
+      margin:0px !important;
+    }
 
-div.xdsoft_label span{
-    margin-top: 0px !important;
-    vertical-align: baseline !important;
-}
+    div.xdsoft_label span{
+      margin-top: 0px !important;
+      vertical-align: baseline !important;
+    }
 
-div.xdsoft_calendar table th{
-    padding:0px !important;
-     font-size:7px !important;
+    div.xdsoft_calendar table th{
+      padding:0px !important;
+      font-size:7px !important;
       font-weight: normal !important;
-}
+    }
 
-div.row-button a.active{
-        background-color: #03a6fa;
-        color: #fff;
-}
+    div.row-button a.active{
+      background-color: #03a6fa;
+      color: #fff;
+    }
 
     .highlighted {
-   font-weight: bold;
-    background: yellow ;
-}
+     font-weight: bold;
+     background: yellow ;
+   }
 
-.android_ic{  
-   background: url({{app_domain}}/public/admin/img/adblue.png) no-repeat;
-    background-position: 5% 50%;
-    padding-left: 30px;
-}
-.android_ic:hover{
-   background: url({{app_domain}}/public/admin/img/adwhite.png) no-repeat;
-    background-position: 100% 50%;
-    padding-right: 30px;
-    padding-left: 10px;
-}
- .active_icad
-{  
-   background: url({{app_domain}}/public/admin/img/adwhite.png) no-repeat;
-    background-position: 5% 50%;
-    padding-left: 30px;
-}
+   .android_ic{  
+     background: url({{app_domain}}/public/admin/img/adblue.png) no-repeat;
+     background-position: 5% 50%;
+     padding-left: 30px;
+   }
+   .android_ic:hover{
+        background: url({{app_domain}}/public/admin/img/adwhite.png) no-repeat;
+        padding-left: 30px;
+        background-position: 5% 50%;
+   }
+   .active_icad
+   {  
+     background: url({{app_domain}}/public/admin/img/adwhite.png) no-repeat;
+     background-position: 5% 50%;
+     padding-left: 30px;
+   }
 
-
-.ios_ic{  
-   background: url({{app_domain}}/public/admin/img/appleblue.png) no-repeat;
-    background-position: 5% 50%;
-    padding-left: 30px;
-}
-.ios_ic:hover{
+   .ios_ic{  
+     background: url({{app_domain}}/public/admin/img/appleblue.png) no-repeat;
+     background-position: 5% 50%;
+     padding-left: 30px;
+   }
+   .ios_ic:hover{
+        background: url({{app_domain}}/public/admin/img/applewhite.png) no-repeat;
+        padding-left: 30px;
+        background-position: 5% 50%;
+   }
+   .active_icios{  
      background: url({{app_domain}}/public/admin/img/applewhite.png) no-repeat;
-     background-position: 100% 50%;
-    padding-right: 30px;
-    padding-left: 10px;
-}
-    .active_icios{  
-   background: url({{app_domain}}/public/admin/img/applewhite.png) no-repeat;
-    background-position: 5% 50%;
-    padding-left: 30px;
-}
-.line_tran{
-    width: 0px;
+     background-position: 5% 50%;
+     padding-left: 30px;
+   }
+   .line_tran{
+     width: 100%;
     height: 1px;
     background: #03A6FA;
-    -webkit-transition: width 1s; /* For Safari 3.1 to 6.0 */
-    transition: width 1s;
+  }
+table.striped td{
+    padding-top:8px;
+    padding-bottom:8px;
+    font-size: 13px;
 }
-.content-full:hover .line_tran{
-    width: 100%;
+table.bordered td{
+    padding-top:13px;
+    padding-bottom:13px;
+    font-size: 13px;
 }
- </style>
+.wrapper .row-button{
+    padding: 6px !important;
+}
+.sort_order{
+    cursor: pointer;
+    background: #e0f5fa url({{app_domain}}/public/lib/images/arrow-204-8.png) no-repeat;
+    background-position: 50% 0%;
+}
+.active_order{
+    background: #e0f5fa url({{app_domain}}/public/lib/images/arrow-204-8_in.png) no-repeat !important;
+    background-position: 50% 0% !important;
+}
+#menu-right{
+    background-color: #0C5582;
+}
+#menu-right .collapsible{
+       color: #fff;
+}
+#header .header-inside .dropdown-button
+{
+    background-color: #094162;
+}
+#header{
+    background-color: #05283c;
+}
+#header .header-inside .wrapper .menu li a.active{
+    background-color: #094162;
+}
+#footer{
+    background-color: #05283c;
+}
 
-  <script type="text/javascript" src="{{app_domain}}/public/libs/angular.min.js"></script>
-  <script type="text/javascript" src="{{app_domain}}/public/libs/angular-ui-router.min.js"></script>
-  <script type="text/javascript" src="{{app_domain}}/public/libs/jquery.min.js"></script>
-    <script src="{{app_domain}}/public/libs/FileSaver.js" type="text/javascript"></script>
-  <script type="text/javascript" src="{{app_domain}}/public/libs/ng-tags-input.min.js"></script>
-  <script type="text/javascript" src="{{app_domain}}/public/libs/jquery.datetimepicker.full.min.js"></script>
-  <script type="text/javascript" src="{{app_domain}}/public/libs/angular-file-upload.min.js"></script>
-  <script type="text/javascript" src="{{app_domain}}/public/libs/angular-click-outside.js"></script>
+#input_container { position:relative; padding:0; margin:0;width:270px; }
+#input { height:20px; margin:0; padding-left: 30px; }
 
- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.2/angular-sanitize.min.js"></script>
+#input_img {  bottom: 10px;
+    height: 25px;
+    position: absolute;
+    right: 10px;
+    width: 25px;
+}
+select.customStyle{
+    padding: 5px;
+    line-height: 1;
+    background: url({{app_domain}}/public/lib/images/funnel.png) no-repeat 95% center;
+    -webkit-appearance: none;
+     -moz-appearance: none;
+}
+select.customRow{
+    padding: 0px 5px;
+    line-height: 1;
+    background: url({{app_domain}}/public/lib/images/arrow.png) no-repeat 90% center rgba(255,255,255,255);
+    -webkit-appearance: none;
+     -moz-appearance: none;
+      width:50px;
+}
+.wrapper .list-noti li table td.customTag{
+     padding: 0px 5px !important;
+}
+
+input.push,textarea.push,select.push,tags-input .tags 
+{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    outline: none;
+    display: block;
+    padding: 7px;
+    border: none ;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+    font: 16px Arial, Helvetica, sans-serif;
+    height: 37px;
+    box-shadow:none;
+    border-radius:0;
+}
+textarea.push{
+    resize:none;
+    overflow: hidden;
+}
+tags-input .tags{
+    padding:0px;
+    height: 30px;
+}
+
+/*Style autocomplete*/
+.left-panel {
+  float: left;
+}
+
+.left-panel img {
+  width: 48px;
+  height: 48px;
+  vertical-align: middle;
+}
+
+.right-panel {
+  float: left;
+  margin-left: 5px;
+  margin-top: 7px;
+}
+
+.right-panel span:first-child {
+  font-size: 16px;
+}
+
+.right-panel span:nth-child(2) {
+  font-size: 14px;
+  color: gray;
+}
+
+.right-panel span:last-child {
+  display: block;
+  font-size: 14px;
+  font-style: italic;
+}
+tags-input .autocomplete .suggestion-item
+{
+    padding: 0px 10px !important;
+}
+ti-tag-item ng-include span{
+    padding: 0px 0px 0px 5px;
+}
+ti-tag-item ng-include a{
+    padding: 0px 5px 0px 0px !important;
+    margin-left:0px !important;
+    color:#03A6FA !important;
+}
 
 
-  <script src="{{app_domain}}/public/lib/js/modernizr.js"></script>
-  <script src="{{app_domain}}/public/lib/js/bin/materialize.js"></script>
+</style>
 
-  <script>
-    var APP_DOMAIN = '{{app_domain}}';
-    var LOGOUT_URL = '{{logout_url}}';
+<script type="text/javascript" src="{{app_domain}}/public/libs/angular.min.js"></script>
+<script type="text/javascript" src="{{app_domain}}/public/libs/angular-ui-router.min.js"></script>
+<script type="text/javascript" src="{{app_domain}}/public/libs/jquery.min.js"></script>
+<script type="text/javascript" src="{{app_domain}}/public/libs/FileSaver.js"></script>
+<script type="text/javascript" src="{{app_domain}}/public/libs/ng-tags-input.min.js"></script>
+<script type="text/javascript" src="{{app_domain}}/public/libs/jquery.datetimepicker.full.min.js"></script>
+<script type="text/javascript" src="{{app_domain}}/public/libs/angular-file-upload.min.js"></script>
+<script type="text/javascript" src="{{app_domain}}/public/libs/angular-click-outside.js"></script>
+
+<script type="text/javascript" src="{{app_domain}}/public/libs/angular-sanitize.min.js"></script>
+<script src="{{app_domain}}/public/lib/js/modernizr.js"></script>
+<script src="{{app_domain}}/public/lib/js/bin/materialize.js"></script>
+
+<script src="{{app_domain}}/public/libs/sweetalert.min.js"></script>
+
+<script>
+  var APP_DOMAIN = '{{app_domain}}';
+  var LOGOUT_URL = '{{logout_url}}';
 </script>
 </head>
 <body ng-controller="main">
-    <div ui-view>
-    </div>
+  <div ui-view>
+  </div>
 
-    <div id="app-noti">
-        <p ng-repeat="item in $root.noti">[[item.msg]]</p>
-    </div>
+  <div id="app-noti">
+    <p ng-repeat="item in $root.noti">[[item.msg]]</p>
+  </div>
 
-    <script type="text/javascript">
-        $(function () {
+  <script type="text/javascript">
+    $(function () {
 
-        });
-    </script>
-    <script type="text/javascript" src="{{app_domain}}/public/admin/js/app.js"></script>
+    });
+  </script>
+  <script type="text/javascript" src="{{app_domain}}/public/admin/js/app.js"></script>
+  <script type="text/ng-template" id="my-custom-template">
+        <div class="left-panel">
+            <img ng-src="http://mbenford.github.io/ngTagsInput/images/flags/[[data.flag]]" />
+        </div>
+        <div class="right-panel">
+            <span ng-bind-html="$highlight($getDisplayText())"></span>
+            <span>([[data.rank]])</span>
+            <span>[[data.confederation]]</span>
+        </div>
+</script>
 </body>
 </html>

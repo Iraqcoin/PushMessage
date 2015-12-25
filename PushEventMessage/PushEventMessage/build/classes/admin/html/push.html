@@ -2,7 +2,7 @@
 
     <div id="header">
         <div class="header-inside">
-            <h1 class="logo"><a href="#">Zalo</a></h1>
+            <h1 class="logo"><a href="#" ng-click="dashboardRD()">Zalo</a></h1>
             <a class='dropdown-button btn' href='#' data-activates='dropdown1' ng-click="change()"><p>[[$root.selectedApp.name]]</p><span>PROD</span></a>
            
               <ul style="display: none; width: 200px; position: absolute; top: 0px; left: 46px; opacity: 1;" class='dropdown-content' ng-class="{showhint: dropdown.active === true}">
@@ -15,14 +15,29 @@
 
             </ul>
 
-            <div class="wrapper">
+            <div class="wrapper" style="text-align: center;">
                 <ul class="menu">
                     <li ui-sref="appInfo($root.selectedApp)"><a href="#"><span class="ic ic-core"></span>Core</a></li>
                     <li><a href="#" class="active"><span class="ic ic-push"></span>Push</a></li>
                     <li ui-sref="setting($root.selectedApp)"><a href="#"><span class="ic ic-settings"></span>Settings</a></li>
                 </ul>
             </div>
-            <div class="user"><a href="#"><img src="http://placehold.it/24x24">Nguyen Hoai Bao</a></div>
+            
+            <a class='dropdown-button btn' href='' ng-click="changeLogin()" style="position: absolute;right: -4px;top: 0;left:auto;">
+                <img ng-src="https://cdn4.iconfinder.com/data/icons/32x32-free-design-icons/32/Pencil.png" width="32" height="32" style="margin-top: 5px;">
+                <span style="font-size: 12px;border: none;width: auto;margin-top: 5px;line-height: 16px;">
+                    <strong style="font-weight: bold;">Hello Hoài Bảo</strong><br>
+                    <i style="font-size: 10px;">You’re login as Admin</i>
+                </span>
+            </a>
+            <ul style="margin-left: 87%;top: auto !important;display: none; width: 200px; position: absolute; top: 0px; left: 46px; opacity: 1;" class='dropdown-content' ng-class="{showhint: dropdown.activeLogin === true}">
+               <li style="border-bottom: 1px solid #4eb5e9;">
+                  <a href="[[logoutUrl]]">
+                     <p>Logout</p>
+                  </a>
+               </li>
+            </ul>
+
         </div>
     </div>
     <!--End header-->
@@ -30,13 +45,13 @@
     <div id="menu-right">
         <ul class="collapsible" data-collapsible="accordion">
             <li ng-class="{active: tab == 'devices'}">
-                <div class="collapsible-header" ng-class="{active: tab == 'devices'}" ng-click="tab = 'devices'"><span class="ic ic-data"></span>Devices</div>
+                <div class="collapsible-header" ng-class="{active: tab == 'devices'}" ui-sref="appInfo($root.selectedApp)" ng-click="tab = 'devices'"><span class="ic ic-data"></span>Devices</div>
             </li>
             <li ng-class="{active: tab == 'scheduled'}">
-                <div class="collapsible-header" ng-class="{active: tab == 'scheduled'}" ng-click="tab = 'scheduled'"><span class="ic ic-cloudcode"></span>Scheduled</div>          
+                <div class="collapsible-header" ng-class="{active: tab == 'scheduled'}" ui-sref="appInfo($root.selectedApp)" ng-click="tab = 'scheduled'"><span class="ic ic-cloudcode"></span>Scheduled</div>          
             </li>
             <li ng-class="{active: tab == 'history'}" ng-click="tab = 'history'">
-                <div class="collapsible-header" ng-class="{active: tab == 'history'}" ng-click="tab = 'history'"><span class="ic ic-webhooks"></span>History</div>
+                <div class="collapsible-header" ng-class="{active: tab == 'history'}" ui-sref="appInfo($root.selectedApp)" ng-click="tab = 'history'"><span class="ic ic-webhooks"></span>History</div>
             </li>
         </ul>
     </div>
@@ -45,9 +60,9 @@
 
     <div class="content-full">
         <div class="wrapper">
-            <div class="row-button clearfix" style="border-bottom:#03a6fa solid 1px;">
+            <div class="row-button clearfix" style="border-bottom:#03a6fa solid 1px;padding: 15px !important;">
                 <h3>Send a push notifications</h3>
-                <a href="#" class="btn btn-stroke send-push back" ng-click="backFN()">Back</a>         
+                <a href="#" class="btn btn-stroke send-push back" ng-click="dashboardRD()">Back</a>         
             </div>
             <div class="line_tran"></div>
             <ul class="list-noti">
@@ -65,7 +80,6 @@
                             </tr>
                         </thead>
                         <tbody>
-
                             <tr>
                                 <td class="odd" width="10%" >
                                     <p style="text-align: center;">
@@ -92,7 +106,7 @@
           <li>
             <div class="title-app">
                 <h2>Filters</h2>
-                <p class="time">This will be sent to [[deviceCount]] devices.</p>
+                <p class="time">This will be sent to [[deviceCount]] devices. [[filter]]</p>
             </div>
             <ul class="list-control">
 
@@ -100,16 +114,79 @@
                 <table border="0">
                         <tbody>
                             <tr class="noBorder" ng-repeat="(key, val) in filter">
-                                <td width="30%" style="padding-left: 30px;">
+                                <td width="30%" style="padding-left: 15px !important;" class="customTag">
                                         [[PROPERTIES[key] ]] equals :
                                 </td>
-                                <td>
+                                <td class="customTag">
                                      <tags-input ng-model="val" placeholder="add here" min-length="1" on-tag-added="getDeviceCount()" on-tag-removed="getDeviceCount()"></tags-input>
                                 </td>
-                                <td>
-                                     <button class="btn remove" style="width:25px;height: 25px;padding:0px;line-height:25px;" ng-click="removeFilterProperty(key)">X</button>
+                                <td class="customTag">
+                                     <image style="cursor: pointer;" ng-src="[[app_domain]]/public/lib/images/delete-property-24.png" ng-click="removeFilterProperty(key)"/>
                                 </td>
                             </tr>
+
+                            <!--Filter News-->
+                            <tr class="noBorder">
+                                <td width="30%" style="padding-left: 15px !important;" class="customTag">
+                                        Location equals :
+                                </td>
+                                <td class="customTag">
+                                    <tags-input ng-model="tags" display-property="name" placeholder="Add a country" replace-spaces-with-dashes="false">
+                                      <auto-complete source="loadCountries($query)"
+                                                     min-length="0"
+                                                     load-on-focus="true"
+                                                     load-on-empty="true"
+                                                     max-results-to-show="32"
+                                                     template="my-custom-template"></auto-complete>
+                                    </tags-input>
+
+                                </td>
+                                <td class="customTag">
+                                     <image style="cursor: pointer;" ng-src="[[app_domain]]/public/lib/images/delete-property-24.png" ng-click="removeFilterProperty(key)"/>
+                                </td>
+                            </tr>
+                            <tr class="noBorder">
+                                <td width="30%" style="padding-left: 15px !important;" class="customTag">
+                                        Gender equals :
+                                </td>
+                                <td class="customTag">
+                                     <div class="switch non-float"  style="margin-left: 10px;">
+                                
+                                            <span style="position: relative;">
+                                                <input class="with-gap" name="group1" type="radio" id="test3" checked="true" />
+                                                <label for="test3" ng-click="tab = 'gcm'"></label>
+                                                <span style="position: absolute;top:-10px;"><label for="test3" ng-click="tab = 'gcm'">Famale</label></span>
+                                            </span>
+                                          
+                                            <span style="margin-left: 60px;position: relative;">
+                                                <input class="with-gap" name="group1" type="radio" id="test2"  />
+                                                <label for="test2" ng-click="tab = 'apns'"></label>
+                                                <span style="position: absolute;top:-10px;"><label for="test2" ng-click="tab = 'apns'">Male</label></span>
+                                            </span>
+                                      </div>
+                                </td>
+                                <td class="customTag">
+                                     <image style="cursor: pointer;" ng-src="[[app_domain]]/public/lib/images/delete-property-24.png" ng-click="removeFilterProperty(key)"/>
+                                </td>
+                            </tr>
+                             <tr class="noBorder">
+                                <td width="30%" style="padding-left: 15px !important;" class="customTag">
+                                        Birthday range :
+                                </td>
+                                <td class="customTag">
+                                  
+                                        <input class="push" id="time-to-push-from" type="text" style="font-size: 15px;width:130px;display:inline" readonly='true' />
+                                        <img ng-src="[[app_domain]]/public/lib/images/calendar.png">
+                                   
+                                        <input class="push" id="time-to-push-to" type="text" style="font-size: 15px;width:130px;display:inline;" readonly='true' />
+                                        <img ng-src="[[app_domain]]/public/lib/images/calendar.png">
+                                   
+                                </td>
+                                <td class="customTag">
+                                     <image style="cursor: pointer;" ng-src="[[app_domain]]/public/lib/images/delete-property-24.png" ng-click="removeFilterProperty(key)"/>
+                                </td>
+                            </tr>
+                            <!--End Filter News-->
                         </tbody>
                 </table>   
             </li>
@@ -118,11 +195,11 @@
                     <table border="0">
                         <tbody>
                             <tr class="noBorder">
-                                <td width="30%" style="padding-left: 30px;">
+                                <td width="29%" style="padding-left: 20px;">
                                         Select a property : 
                                 </td>
                                 <td>
-                                    <select ng-model="selectedProperty" ng-change="addFilter(selectedProperty)" style="font-size: 15px; width: 250px;">
+                                    <select ng-model="selectedProperty" ng-change="addFilter(selectedProperty)" style="font-size: 15px; width: 280px;" class="customStyle push">
                                             <option ng-repeat="option in filterOptions" value="[[option]]" >[[ PROPERTIES[option] ]]</option>
                                     </select>
                                 </td>
@@ -145,15 +222,26 @@
                     <a href="" class="now" ng-click="data.pushNow = true" ng-class="{selected: (data.pushNow == true)}"><span></span>Now</a>
                     <span>or</span>
                     <a href="" class="later" ng-click="data.pushNow = false" ng-class="{selected: (data.pushNow == false)}"><span></span>Later</a>
-
-                    <div ng-show="data.pushNow == false" style="display: block; left: 987px; top: 820px; position: absolute;z-index: 9000;">
-                        <input id="time-to-push" type="text"/>
-                    </div>
-
                 </div>
             </li>
 
-
+            <li style="padding: 5px;" ng-show="data.pushNow == false">
+                    <table border="0">
+                        <tbody>
+                            <tr class="noBorder">
+                                <td width="30%" style="padding-left: 50px;">
+                                        Select DateTime : 
+                                </td>
+                                <td>
+                                    <div id="input_container">
+                                        <input class="push" id="time-to-push" type="text" style="font-size: 15px;width:270px;" readonly='true' />
+                                        <img ng-src="[[app_domain]]/public/lib/images/calendar.png" id="input_img">
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>   
+            </li>
         </ul>
     </li>
     <li>
@@ -163,10 +251,10 @@
         </div>
         <ul class="list-control">
             <li>
-                <input ng-model="data.title" size="35px" type="text" placeholder="Your title here..." style="margin-bottom: 10px;font-size:15px;" />
-                <textarea ng-model="data.msg" placeholder="Your message here..."></textarea>
+                <input ng-model="data.title" size="35px" type="text" placeholder="Your title here..." style="margin-bottom: 10px;font-size:15px;" class="push" />
+                <textarea ng-model="data.msg" placeholder="Your message here..." class="push" style="border: none !important;border-bottom: 1px solid #ddd !important;"></textarea>
                 <p class="length">[[data.msg.length]]</p>
-                <a href="" id="icon" class="btn send-push back" ng-click="push()"> Push</a>      
+                <a href="" id="icon" class="btn send-push back" ng-click="push()"><span class="ic ic-push"></span>Push</a>      
             </li>     
         </ul>
     </li>
@@ -174,8 +262,6 @@
 </div>
 </div>
 <!--End send push-->
-
-
 
 <div id="footer">
     <ul>
@@ -189,111 +275,5 @@
     </ul>
     <div class="clear"></div>
 </div><!--end footer-->
-
-
-
-
-
-
- <!--    <div id="body">
-        <div class="main-title">
-            Push Notfication
-        </div>
-        <div class="main-push">
-            <table class="form">
-                <tbody>
-                    <tr>
-                        <td>Platform:</td>
-                        <td>
-                            <button class="btn selector" ng-click="data.platform = 'android';getDeviceCount();" ng-class="{active: (data.platform == 'android')}">
-                                <span class="ic ic-android"></span><br/>
-                                Android</button>
-                            <button class="btn selector" ng-click="data.platform = 'ios'; getDeviceCount();" ng-class="{active: (data.platform == 'ios')}">
-                                <span class="ic ic-ios"></span><br/>
-                                iOS
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Filters:</td>
-                        <td>
-                            <table>
-                                <tr ng-repeat="(key, val) in filter">
-                                    <td>[[PROPERTIES[key] ]] equals </td>
-                                    <td>
-                                        <tags-input ng-model="val" placeholder="add here" min-length="1" on-tag-added="getDeviceCount()" on-tag-removed="getDeviceCount()"></tags-input>
-                                    </td>
-                                    <td><button class="btn remove" ng-click="removeFilterProperty(key)">X</button></td>
-                                </tr>
-
-                                <tr ng-show="filterOptions.length > 0">
-                                    <td>
-                                        Select a property 
-                                    </td>
-                                    <td>
-                                        <select ng-model="selectedProperty" ng-change="addFilter(selectedProperty)">
-                                            <option ng-repeat="option in filterOptions" value="[[option]]" >[[ PROPERTIES[option] ]]</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td colspan="1" style="height:50px">
-                            <strong style="font-weight: bold;">This will be sent to [[deviceCount]] devices.</strong>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Time:</td>
-                        <td>
-                            <table>
-                                <tr>
-                                    <td>
-                                        <button class="btn" ng-click="data.pushNow = true" ng-class="{active: (data.pushNow == true)}">Now</button>
-                                    </td>
-                                    <td>
-                                        <button class="btn" ng-click="data.pushNow = false" ng-class="{active: (data.pushNow == false)}">Later</button>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr ng-show="data.pushNow == false">
-                        <td></td>
-                        <td>
-                            <input id="time-to-push" type="text" >
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Message:</td>
-                        <td>
-                            <table>
-                                <tr>
-                                    <td>Title:</td>
-                                    <td><textarea class="title" ng-model="data.title"></textarea></td>
-                                </tr>
-                                <tr>
-                                    <td>Content:</td>
-                                    <td>
-                                        <textarea class="msg" ng-model="data.msg"></textarea>
-                                        <p class="length">[[data.msg.length]]</p>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <button class="btn push" ng-click="push()">Push</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div> -->
 
 </div>

@@ -398,6 +398,9 @@ app.factory("push", function ($http, eventbus) {
 
 
 app.controller("main", function ($scope, eventbus, push, $state, $rootScope, $timeout) {
+    $scope.dashboardRD = function(){
+        window.location.replace(APP_DOMAIN + "/admin");
+    }
 
     $scope.appss = [];
 
@@ -412,12 +415,16 @@ app.controller("main", function ($scope, eventbus, push, $state, $rootScope, $ti
     reload();
 
     $rootScope.dropdown = {
-        active : false
+        active : false,
+        activeLogin : false
     };
 
     $rootScope.change = function(){
         $rootScope.dropdown.active = !$rootScope.dropdown.active;
     };
+    $rootScope.changeLogin = function() {
+         $rootScope.dropdown.activeLogin = !$rootScope.dropdown.activeLogin;
+    }
 
     $rootScope.noti = [];
     $scope.showUserMenu = false;
@@ -551,7 +558,22 @@ app.controller("setting", function ($scope, $rootScope, push, FileUploader) {
     reload();
 });
 
-app.controller("createPush", function ($scope, $rootScope, push, $timeout) {
+app.controller("createPush", function ($scope, $rootScope, push, $timeout,$http) {
+
+     $scope.tags = [];
+      $scope.loadCountries = function($query) {
+        return $http.get('http://dev.events-msg.zaloapp.com:8017/public/admin/html/countries.json', { cache: true}).then(function(response) {
+          var countries = response.data;
+          return countries.filter(function(country) {
+            return country.name.toLowerCase().indexOf($query.toLowerCase()) != -1;
+          });
+        });
+      };
+
+    $scope.click = function(){
+        console.log("click");
+    }
+
     $scope.PROPERTIES = {
         app_version: "App Version",
         os_version: "OS Version",
@@ -650,8 +672,39 @@ app.controller("createPush", function ($scope, $rootScope, push, $timeout) {
 
 
     $('#time-to-push').datetimepicker({
-            inline:true
-        });
+        formatTime:'H:i',
+        formatDate:'d.m.Y',
+        defaultDate:new Date(), // it's my birthday
+        defaultTime:new Date(),
+        value:new Date(),
+        timepickerScrollbar:true,
+        minDate: 0,
+        minTime: 0
+    });
+
+    $('#time-to-push-from').datetimepicker({
+        formatTime:'H:i',
+        formatDate:'d.m.Y',
+        defaultDate:new Date(), // it's my birthday
+        defaultTime:new Date(),
+        value:new Date(),
+        timepickerScrollbar:true,
+        minDate: 0,
+        minTime: 0
+    });
+
+    $('#time-to-push-to').datetimepicker({
+        formatTime:'H:i',
+        formatDate:'d.m.Y',
+        defaultDate:new Date(), // it's my birthday
+        defaultTime:new Date(),
+        value:new Date(),
+        timepickerScrollbar:true,
+        minDate: 0,
+        minTime: 0
+    });
+
+    $('#time-to-push').val()
 
     if ($rootScope.selectedApp && $rootScope.selectedApp.id && !$rootScope.selectedApp.name) {
 
@@ -667,6 +720,14 @@ app.controller("createPush", function ($scope, $rootScope, push, $timeout) {
 });
 
 app.controller("deviceTable", function ($scope, $rootScope, push) {
+
+    // sort
+    $scope.predicate = '';
+    $scope.reverse = true;
+    $scope.order = function(predicate) {
+        $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+        $scope.predicate = predicate;
+    };
   
     $scope.dataOption = {
     selectedOption: {id: '10', name: '10'},
@@ -743,6 +804,7 @@ app.controller("deviceTable", function ($scope, $rootScope, push) {
 });// end device table
 
 app.controller("scheduledTable", function ($scope, $rootScope, push) {
+
     $scope.dataOption = {
     selectedOption: {id: '10', name: '10'},
     availableOptions: [
@@ -752,17 +814,39 @@ app.controller("scheduledTable", function ($scope, $rootScope, push) {
     ],
    };
 
+    $scope.exportData = function () {
+        var blob = new Blob([document.getElementById('exportableSL').innerHTML], {
+            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+        });
+        saveAs(blob, "Scheduled.xls");
+    };
+
     $scope.deleteItem = [];
 
     $scope.deleteListItem = function(){
-        for(var x in $scope.deleteItem)
-        {
-            if($scope.deleteItem[x] != 0 && $scope.deleteItem[x] != null && $scope.deleteItem[x] != undefined && Number.isInteger($scope.deleteItem[x])){
-                console.log("delete : " + $scope.deleteItem[x])
-                $scope.deleteList($scope.deleteItem[x]);
-            }
+        if($scope.deleteItem.length === 0){
+            swal("Selected item is empty!", "You clicked the button!", "warning")
+            return ;
         }
-        reload();
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this imaginary file!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+        }, function() {
+            for(var x in $scope.deleteItem)
+            {
+                if($scope.deleteItem[x] != 0 && $scope.deleteItem[x] != null && $scope.deleteItem[x] != undefined && Number.isInteger($scope.deleteItem[x])){
+                    console.log("delete : " + $scope.deleteItem[x])
+                    $scope.deleteList($scope.deleteItem[x]);
+                }
+            }
+            reload();
+            swal("Deleted!", "Your imaginary file has been deleted.", "success");
+        });
     };
 
     $scope.checkAll = function(id){
@@ -834,10 +918,21 @@ app.controller("scheduledTable", function ($scope, $rootScope, push) {
         }
     };
     $scope.delete = function (id) {
-        push.deleteSchedule(id, function (r) {
-            if (r.data && r.data.code === 0) {
-                reload();
-            }
+         swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this imaginary file!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+        }, function() {
+            push.deleteSchedule(id, function (r) {
+                if (r.data && r.data.code === 0) {
+                    reload();
+                }
+            });
+            swal("Deleted!", "Your imaginary file has been deleted.", "success");
         });
     };
     $scope.deleteList = function (id) {
@@ -849,6 +944,14 @@ app.controller("scheduledTable", function ($scope, $rootScope, push) {
 
 app.controller("historyTable", function ($scope, $rootScope, push) {
 
+    // sort
+    $scope.predicate = '';
+    $scope.reverse = true;
+    $scope.order = function(predicate) {
+        $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+        $scope.predicate = predicate;
+    };
+  
     $scope.dataOption = {
     selectedOption: {id: '10', name: '10'},
     availableOptions: [

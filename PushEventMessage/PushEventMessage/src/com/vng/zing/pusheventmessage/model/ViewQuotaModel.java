@@ -108,7 +108,6 @@ public class ViewQuotaModel {
         public int getDays() {
             return Utils.getDays(msg.getStartDate(), msg.getEndDate());
         }
-
     }
 
 }

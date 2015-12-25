@@ -39,9 +39,13 @@ public class MainApp {
             EventMsgDb.init();
             CachedMsgModel.init();
             EventMsgModel.init();
+            
             ViewQuotaModel.init();
+            
             OutOfQuotaViewModel.init();
+            
             MyDailyTaskScheduler.init();
+            
             NotiInfoModel.init();
         } catch (BackendServiceException ex) {
             LOGGER.error("App init error", ex);

@@ -104,6 +104,7 @@ public class PushNotiModel {
                 //                .setMessage(msg.toJSONString())
                 .setSenderId(getGoogleSenderId(appId))
                 .setRequiredParams("defaultAdmin", requestId, getGoogleSenderId(appId));
+        
 
         if (appVersion != null && !appVersion.isEmpty()) {
             for (String value : appVersion) {
@@ -157,7 +158,6 @@ public class PushNotiModel {
 //            json.put("requestId", requestId);
             SvTaskScheduler.addTask(appId, time, ScheduledTask.TYPE_PUSH_ANDROID_NOTI, requestId);
         }
-
         return requestId;
     }
 
@@ -179,12 +179,10 @@ public class PushNotiModel {
         map.put(Constant.Request.PARAM_MESSAGE, noti.getMessage());
         map.put(Constant.Request.PARAM_PLATFORM, Platform.IOS.toString());
         map.put("request", requestId);
-
         getAndAddFirst(Constant.Request.PARAM_APP_VERSION, map, appVersion);
         getAndAddFirst(Constant.Request.PARAM_OS_VERSION, map, osVersion);
         getAndAddFirst(Constant.Request.PARAM_SDK_VERSION, map, sdkVersion);
         getAndAddFirst(Constant.Request.PARAM_PACKAGE_NAME, map, packageNames);
-
         map.put("state", EventDAO.State.PAUSED.name());
 
 //        JSONObject msg = new JSONObject();
@@ -230,9 +228,7 @@ public class PushNotiModel {
                 build.addExpression(new ZExpression(Constant.Request.PARAM_APP_USER, value, ZExpression.ZOperator.AND, ZExpression.ZComparisonOperator.EQUAL));
             }
         }
-
         LOGGER.info("PERSIST: " + build.build().valueAsJson());
-
         if (time == 0) {
             eventDAO.create(appCode, Platform.IOS.toString(), "defaultAmdmin", requestId, build.build().valueAsJson(), EventDAO.State.PROCESSING);
             new Thread(new Runnable() {
@@ -251,7 +247,6 @@ public class PushNotiModel {
 //            json.put("requestId", requestId);
             SvTaskScheduler.addTask(appId, time, ScheduledTask.TYPE_PUSH_IOS_NOTI, requestId);
         }
-
         return requestId;
     }
 

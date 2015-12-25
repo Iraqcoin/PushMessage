@@ -1,0 +1,70 @@
+<div class="content-full" ng-controller="historyTable" ng-show="tab == 'history'" style="margin-bottom: 50px;">
+    <div class="wrapper box">
+        <div class="row-button clearfix" style="border-bottom:#03a6fa solid 1px;">
+            <a href="#" class="btn btn-stroke" ui-sref="push($root.selectedApp)">+ Row</a>
+            <a href="#" class="btn btn-stroke btn-disable">- Row</a>
+            <input type="text" class="btn btn-stroke more" placeholder="Search here" ng-model="search" />
+            <a href="#" class="btn-left" ng-click="firstPage()"><span class="ic ic-refresh"></span></a>
+            <a href="#" style="margin-right:10px;margin-left: 5px;" ng-click="exportData()"><span class="ic ic-download"></span></a>            
+        </div>
+        <div class="line_tran"></div>
+        <div id="exportableHT">
+        <table class="striped">
+            <thead>
+                <tr style="font-size: 16px;font-weight: bold;">
+                    <th class="center-align" style="padding-left: 15px;">
+                        <p class="check">
+                        </p>
+                    </th>
+                    <th class="center-align">Status</th>
+                    <th class="center-align sort_order" ng-click="order('found')" ng-class="{'active_order':(reverse==false && predicate=='found')}">Devices</th>
+                    <th class="center-align sort_order" ng-click="order('pushed')" ng-class="{'active_order':(reverse==false && predicate=='pushed')}">Pushed</th>
+                    <th class="center-align">Platform</th>
+                    <th class="center-align sort_order" ng-click="order('request.data.title')" ng-class="{'active_order':(reverse==false && predicate=='request.data.title')}">Title</th>
+                    <th class="center-align">Message</th>
+                    <th class="center-align sort_order" ng-click="order('updated_at')" ng-class="{'active_order':(reverse==false && predicate=='updated_at')}">Time</th>
+                </tr>
+            </thead>
+            <tbody style="font-size: 80%;">
+            <tr ng-repeat="item in data | filter:search | orderBy:predicate:reverse">
+                    <td class="center-align">[[$index + 1 + (curPage - 1)*dataOption.selectedOption.id]].</td>
+                    <td class="center-align">
+                        <span ng-show="item.state ==='DONE'"><img ng-src="[[app_domain]]/public/admin/img/check.png"></span>
+                        <span ng-hide="item.state ==='DONE'">[[item.state]]</span> 
+                    </td>
+                    <td class="center-align">[[item.found]]</td>
+                    <td class="center-align">[[item.pushed]]</td>
+                    
+                    <td class="center-align">
+                        <span ng-show="item.platform ==='android' || item.platform ==='ios'"><img ng-src="[[app_domain]]/public/admin/img/[[item.platform]].png" width="32" height="32"></span>
+                        <span ng-hide="item.platform ==='android' || item.platform ==='ios'">[[item.platform]]</span> 
+                    </td>
+                    <td class="center-align" ng-bind-html="item.request.data.title | limitTo: 50 | highlight:search">[[item.request.data.title.length > 50 ? '...' : '']]</td>
+                    <td class="center-align" ng-bind-html="item.request.data.message | limitTo: 50  | highlight:search">[[item.request.data.message.length > 50 ? '...' : '']]</td>
+                    <td class="center-align">[[item.updated_at | date:'h:mma, dd/MM/yyyy']]</td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+        <div class="pagination" style="z-index: 99999;">
+            <div class="fl" style="padding-left: 20px;">
+                Show 
+                <select name="mySelect" id="mySelect"
+                ng-options="option.name for option in dataOption.availableOptions track by option.id"
+                ng-model="dataOption.selectedOption" ng-change="changedValue(dataOption.selectedOption)" class="customRow"></select>
+                of [[count]] items
+            </div>
+            <div class="fr action">
+                <a href="" ng-click="firstPage()" class="disable"><span class="ic ic-previous2"></span></a>
+                <a href="" ng-click="previousPage()"><span class="ic ic-previous"></span></a>
+                <a href="" ng-click="nextPage()"><span class="ic ic-next"></span></a>
+                <a href="" ng-click="lastPage()"><span class="ic ic-next2"></span></a>
+            </div>
+            <div class="fr">
+                Page 
+                <input type="text" placeholder="1" style="width:40px;text-align:center;color:black;" ng-model="curPage" class="ng-pristine ng-untouched ng-valid">
+                of [[maxPage]]
+            </div>
+        </div>
+    </div>
+</div> <!--End content-full History-->

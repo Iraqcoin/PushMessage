@@ -98,8 +98,11 @@ public class AndroidPushService extends AbstractService {
             return;
         }
         eventHandler.update(requestId, expectedTokenIds.size(), 0, 0, EventDAO.State.PROCESSING);
+        
         ExecutorService executor = buildExecutorService(expectedTokenIds.size());
+        
         int maximumPoolSize = ((ThreadPoolExecutor)executor).getMaximumPoolSize();
+        
         for (int i = 0; i < maximumPoolSize; i++) {
             executor.submit(new GCMWorker(requestId, appId, requestMessage.getSenderId(), requestMessage.getData()));
         }
@@ -269,7 +272,6 @@ public class AndroidPushService extends AbstractService {
                 }
             }
             logger.info("Worker stopped");
-                
         } 
         
         private void processCallback(GCMCallback callback) throws BackendServiceException{

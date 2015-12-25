@@ -1,0 +1,69 @@
+<div class="content-full" ng-controller="deviceTable" ng-show="tab == 'devices'">
+    <div class="wrapper box">
+        <div class="row-button clearfix" style="border-bottom:#03a6fa solid 1px;">
+            <h3>Devices Listing notifications</h3>
+            <a class="btn btn-stroke android_ic" ng-click="platform='android'; reload();" ng-class="{'active': (platform=='android'),'active_icad': (platform=='android')}">Android</a>
+            <a class="btn btn-stroke ios_ic" ng-click="platform='ios'; reload();" ng-class="{'active': (platform=='ios'),'active_icios': (platform=='ios')}">iOs</a>
+            <a href="#" class="btn btn-stroke" ui-sref="push($root.selectedApp)">+ Row</a>
+            <a href="#" class="btn btn-stroke btn-disable">- Row</a>
+            <input type="text" class="btn btn-stroke more" placeholder="Search here" ng-model="search" />
+            <a href="#" class="fr btn-left" ng-click="platform='android'; reload();"><span class="ic ic-refresh"></span></a>
+            <a href="#" class="fr" style="margin-right:10px;" ng-click="exportData()"><span class="ic ic-download"></span></a>            
+        </div>
+        <div class="line_tran"></div>
+        <div id="exportable">
+        <table class="bordered" style="font-size: 80%;">
+            <thead>
+                <tr>
+                    <th style="padding-left: 15px;">
+                        <p class="check">
+                           
+                        </p>
+                    </th>
+                    <th>ID <span>string</span></th>
+                    <th>Token <span>string</span></th>
+                    <th style="cursor: pointer" ng-click="order('appVersion')">App Version <span>string</span></th>
+                    <th style="cursor: pointer" ng-click="order('osVersion')">Os Version <span>string</span></th>
+                    <th style="cursor: pointer" ng-click="order('sdkVersion')">Sdk Version <span>string</span></th>
+                    <th>Package <span>number</span></th>
+                    <th>Zalo Id <span>string</span></th>
+                    <th style="cursor: pointer" ng-click="order('utime')">Updated Time <span>datetime</span></th>  
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="device in devices | filter:search | orderBy:predicate:reverse">
+                    <td style="padding-left: 20px;">[[$index + 1 + (curPage - 1) * dataOption.selectedOption.id]].</td>
+                    <td>[[device.id]]</td>
+                    <td>[[device.token | limitTo: 20]]  [[device.token.length > 20 ? '...' : '']]</td>
+                    <td ng-bind-html="device.appVersion | highlight:search"></td>
+                    <td ng-bind-html="device.osVersion | highlight:search"></td>
+                    <td ng-bind-html="device.sdkVersion | highlight:search"></td>
+                    <td ng-bind-html="device.packageName | highlight:search"></td>
+                    <td>[[device.zaloId]]</td>
+                    <td>[[device.utime]]</td>  
+                </tr>
+            </tbody>
+        </table>
+        </div>
+        <div class="pagination">
+            <div class="fl">
+                Show 
+                <select name="mySelect" id="mySelect"
+                ng-options="option.name for option in dataOption.availableOptions track by option.id"
+                ng-model="dataOption.selectedOption" ng-change="changedValue(dataOption.selectedOption)"></select>
+                of [[count]] items
+            </div>
+            <div class="fr action">
+                <a href="" ng-click="firstPage()" class="disable"><span class="ic ic-previous2"></span></a>
+                <a href="" ng-click="previousPage()"><span class="ic ic-previous"></span></a>
+                <a href="" ng-click="nextPage()"><span class="ic ic-next"></span></a>
+                <a href="" ng-click="lastPage()"><span class="ic ic-next2"></span></a>
+            </div>
+            <div class="fr">
+                Page 
+                <input type="text" placeholder="1" style="width:40px;text-align:center;color:black;" ng-model="curPage" class="ng-pristine ng-untouched ng-valid">
+                of [[maxPage]]
+            </div>
+        </div>
+    </div>
+</div> <!--End content-full deviceTable-->

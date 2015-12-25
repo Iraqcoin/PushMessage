@@ -109,5 +109,4 @@ public class SettingHandler {
         NotiInfoModel.getInst().saveApnsKeyFile(appId, ByteBuffer.wrap(data));
         HttpUtils.responseJsonValues(resp, 0, 0);
     }
-
 }

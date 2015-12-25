@@ -1,0 +1,80 @@
+<div ng-controller="dashboard">
+    
+    <div id="header">
+        <div class="header-inside">
+            <h1 class="logo"><a href="#">Zalo</a></h1>
+            <a class='dropdown-button btn' href='' ng-click="change()">Select an App</a>
+            <ul style="display: none; width: 200px; position: absolute; top: 0px; left: 46px; opacity: 1;" class='dropdown-content' ng-class="{showhint: dropdown.active === true}">
+                
+                <li ng-repeat="app in appss" style="border-bottom: 1px solid #4eb5e9;"><a href="#!" ui-sref="appInfo({id: app.id})" ng-click="change()"><p>[[app.name]]</p><span>PROD</span></a></li>
+                
+                <li ng-repeat="app in appss" style="border-bottom: 1px solid #4eb5e9;"><a href="#!" ui-sref="appInfo({id: app.id})" ng-click="change()"><p>[[app.name]]</p><span>PROD</span></a></li>
+
+                <li ng-repeat="app in appss" style="border-bottom: 1px solid #4eb5e9;"><a href="#!" ui-sref="appInfo({id: app.id})" ng-click="change()"><p>[[app.name]]</p><span>PROD</span></a></li>
+
+            </ul>
+
+            <div class="wrapper">
+                <h3>Dashboard</h3>
+            </div>
+            
+             <div class="user">
+                <a href="#"><img ng-src="[[$root.user.avatar]]" width="32" height="32">[[$root.user.name]]</a>
+             </div>
+            <div style="position: absolute;right: 5px;top: 0;">
+                <a href="[[logoutUrl]]"><img  style="margin-top: 5px;" ng-src="[[app_domain]]/public/admin/img/logout-32.png"></a>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="wrapper">
+        <div align="center" style="padding-top:15px;" ng-show="apps.length === 0"><a href="#" class="btn"> 
+            You don't have any apps!
+        </a></div>
+        <ul class="list-app" style="text-align: center;"> 
+
+            <li ng-repeat="app in appss">
+                <div class="title-app clearfix">
+                    <img ui-sref="appInfo({id: app.id})" ng-src="[[app_domain]]/public/admin/img/[[app.logo]]" class="avatar">
+                    <span class="fl">PROD</span>
+                    <a href="#" class="fr" ui-sref="setting({id: app.id})"><span class="ic ic-customize"></span></a>
+                    <h2><a ui-sref="appInfo({id: app.id})">[[app.name]]</a></h2>
+                    <p class="time">Create <b>about 1 month ago</b></p>
+                    <p class="time">Share by <b>[[$root.user.name]]</b></p>
+                </div>
+                <div class="report-app">
+                    <ul class="clearfix">
+                       <li>
+                        <h3>[[app.deviceCount]]</h3>
+                        <p>Devices</p>
+                    </li>
+                    <li>
+                        <h3>[[app.pushCount]]</h3>
+                        <p>Pushed</p>
+                    </li>
+                    <li>
+                        <h3>[[app.scheduleCount]]</h3>
+                        <p>Scheduled</p>
+                    </li>
+                </ul>
+            </div>
+        </li> 
+        
+    </ul>
+</div>
+
+
+    <div id="footer">
+       <ul>
+        <li><a href="#">Docs</a></li>
+        <li><a href="#">Billing</a></li>
+        <li><a href="#">Downloads</a></li>
+        <li><a href="#">Help</a></li>
+        <li><a href="#">Status</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Zalo</a></li>
+    </ul>
+    <div class="clear"></div>
+</div>
+</div>

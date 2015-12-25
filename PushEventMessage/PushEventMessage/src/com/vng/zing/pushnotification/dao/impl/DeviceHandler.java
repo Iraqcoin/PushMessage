@@ -367,6 +367,7 @@ public class DeviceHandler implements DeviceDAO {
                 stm.setString(2, token);
                 result = stm.executeUpdate();
             }
+            
             if (extra != null && !extra.isEmpty()) {
                 addOrUpdateMetadata(appId, platform, sdkId, extra, conn);
             }
@@ -425,7 +426,9 @@ public class DeviceHandler implements DeviceDAO {
         StringBuilder colNames = new StringBuilder();
         StringBuilder questionMarks = new StringBuilder();
         StringBuilder updateClause = new StringBuilder();
+        
         List<String> values = new ArrayList<>();
+        
         for (Map.Entry<String, String> entry : extra.entrySet()) {
             String colName = entry.getKey();
             String colVal = entry.getValue();

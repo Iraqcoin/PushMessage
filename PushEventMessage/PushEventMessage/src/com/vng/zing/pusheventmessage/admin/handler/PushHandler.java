@@ -138,7 +138,6 @@ public class PushHandler {
         } else {
             throw new InvalidRequestException("Invalid Platform");
         }
-
         HttpUtils.responseJsonValues(resp, 0, time);
     }
 

@@ -17,106 +17,46 @@
             <div class="wrapper">
                 <h3>Dashboard</h3>
             </div>
-            <div class="user"><a href="#"><img src="http://placehold.it/24x24">Nguyen Hoai Bao</a></div>
+            
+            <!--  <div class="user">
+                <a href="#"><img ng-src="[[$root.user.avatar]]" width="32" height="32">[[$root.user.name]]</a>
+               <a href="#"><img ng-src="[[$root.user.avatar]]" width="32" height="32"></a>
+             </div> -->
+           <!--  <div style="position: absolute;right: 5px;top: 0;">
+                <a href="[[logoutUrl]]"><img  style="margin-top: 5px;" ng-src="[[app_domain]]/public/admin/img/logout-32.png"></a>
+            </div> -->
+            <a class='dropdown-button btn' href='' ng-click="changeLogin()" style="position: absolute;right: -4px;top: 0;left:auto;">
+                <img ng-src="https://cdn4.iconfinder.com/data/icons/32x32-free-design-icons/32/Pencil.png" width="32" height="32" style="margin-top: 5px;">
+                <span style="font-size: 12px;border: none;width: auto;margin-top: 5px;line-height: 16px;">
+                    <strong style="font-weight: bold;">Hello Hoài Bảo</strong><br>
+                    <i style="font-size: 10px;">You’re login as Admin</i>
+                </span>
+            </a>
+            <ul style="margin-left: 87%;top: auto !important;display: none; width: 200px; position: absolute; top: 0px; left: 46px; opacity: 1;" class='dropdown-content' ng-class="{showhint: dropdown.activeLogin === true}">
+               <li style="border-bottom: 1px solid #4eb5e9;">
+                  <a href="[[logoutUrl]]">
+                     <p>Logout</p>
+                  </a>
+               </li>
+            </ul>
+     
         </div>
     </div>
 
-
     <div class="wrapper">
-        <div align="center" style="padding-top:15px;"><a href="#" class="btn">Create a new app</a></div>
         <div align="center" style="padding-top:15px;" ng-show="apps.length === 0"><a href="#" class="btn"> 
             You don't have any apps!
         </a></div>
-        <ul class="list-app"> 
-            <li>
-                <div class="title-app clearfix">
-                    <img src="http://placehold.it/72x72" class="avatar">
-                    <span class="fl">DEV</span>
-                    <a href="#" class="fr"><span class="ic ic-customize"></span></a>
-                    <h2><a href="#">learnapp</a></h2>
-                    <p class="time">Create <b>about 1 month ago</b></p>
-                    <p class="time">Share by <b>Ngan Dinh Kim</b></p>
-                </div>
-                <div class="report-app">
-                    <ul class="clearfix">
-                        <li>
-                            <h3>43</h3>
-                            <p>Requests</p>
-                        </li>
-                        <li>
-                            <h3>0</h3>
-                            <p>Users</p>
-                        </li>
-                        <li>
-                            <h3>1</h3>
-                            <p>Installations</p>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-            <li>
-                <div class="title-app clearfix">
-                    <img src="http://placehold.it/72x72" class="avatar">
-                    <span class="fl">DEV</span>
-                    <a href="#" class="fr"><span class="ic ic-customize"></span></a>
-                    <h2><a href="#">learnapp</a></h2>
-                    <p class="time">Create <b>about 1 month ago</b></p>
-                    <p class="time">Share by <b>Ngan Dinh Kim</b></p>
-                </div>
-                <div class="report-app">
-                    <ul class="clearfix">
-                        <li>
-                            <h3>43</h3>
-                            <p>Requests</p>
-                        </li>
-                        <li>
-                            <h3>0</h3>
-                            <p>Users</p>
-                        </li>
-                        <li>
-                            <h3>1</h3>
-                            <p>Installations</p>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-            <li class="end">
-                <div class="title-app clearfix">
-                    <img src="http://placehold.it/72x72" class="avatar">
-                    <span class="fl">DEV</span>
-                    <a href="#" class="fr"><span class="ic ic-customize"></span></a>
-                    <h2><a href="#">learnapp</a></h2>
-                    <p class="time">Create <b>about 1 month ago</b></p>
-                    <p class="time">Share by <b>Ngan Dinh Kim</b></p>
-                </div>
-                <div class="report-app">
-                    <ul class="clearfix">
-                        <li>
-                            <h3>43</h3>
-                            <p>Requests</p>
-                        </li>
-                        <li>
-                            <h3>0</h3>
-                            <p>Users</p>
-                        </li>
-                        <li>
-                            <h3>1</h3>
-                            <p>Installations</p>
-                        </li>
-                    </ul>
-                </div>
-            </li>
+        <ul class="list-app" style="text-align: center;"> 
 
             <li ng-repeat="app in appss">
                 <div class="title-app clearfix">
-                    <img ui-sref="appInfo({id: app.id})" src="http://dev.events-msg.zaloapp.com:8017/public/admin/img/[[app.logo]]" class="avatar">
-                    <span class="fl">DEV</span>
-                    <a href="#" class="fr"><span class="ic ic-customize"></span></a>
+                    <img ui-sref="appInfo({id: app.id})" ng-src="[[app_domain]]/public/admin/img/[[app.logo]]" class="avatar">
+                    <span class="fl">PROD</span>
+                    <a href="#" class="fr" ui-sref="setting({id: app.id})"><span class="ic ic-customize"></span></a>
                     <h2><a ui-sref="appInfo({id: app.id})">[[app.name]]</a></h2>
                     <p class="time">Create <b>about 1 month ago</b></p>
-                    <p class="time">Share by <b>Ngan Dinh Kim</b></p>
+                    <p class="time">Share by <b>[[$root.user.name]]</b></p>
                 </div>
                 <div class="report-app">
                     <ul class="clearfix">
@@ -139,42 +79,6 @@
     </ul>
 </div>
 
-
-
-    <!-- <div id="body">
-        <div class="main-title" ng-show="apps.length === 0">
-            You don't have any apps!
-        </div>
-        <div class="app-list">
-            <ul>
-
-                <li ng-repeat="app in apps">
-                    <div class="app-title">
-                        <img ui-sref="appInfo({id: app.id})" src="http://dev.events-msg.zaloapp.com:8017/public/admin/img/[[app.logo]]" class="logo" />
-                        <h2><a ui-sref="appInfo({id: app.id})">[[app.name]]</a></h2>
-                    </div>
-                    <div class="app-info">
-                        <ul>
-                            <li>
-                                <h3>[[app.deviceCount]]</h3>
-                                <p>Devices</p>
-                            </li>
-                            <li>
-                                <h3>[[app.pushCount]]</h3>
-                                <p>Pushed</p>
-                            </li>
-                            <li>
-                                <h3>[[app.scheduleCount]]</h3>
-                                <p>Scheduled</p>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-
-            </ul>
-        </div>
-    </div> -->
 
     <div id="footer">
        <ul>

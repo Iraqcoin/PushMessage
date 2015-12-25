@@ -17,8 +17,8 @@ public class SdkModel {
     private static final Logger _logger = ZLogger.getLogger(SdkModel.class);
     private static final SdkModel Instance = new SdkModel();
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//    private static final Xeger xeger = new Xeger("[a-zA-Z0-9]{16}");
-	public static final String HASH_KEY = "@zoauth!2$%^@13";
+    //  private static final Xeger xeger = new Xeger("[a-zA-Z0-9]{16}");
+    public static final String HASH_KEY = "@zoauth!2$%^@13";
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     private SdkModel() {

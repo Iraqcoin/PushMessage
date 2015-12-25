@@ -1,0 +1,85 @@
+<div ng-controller="appInfo">
+    <!-- <div id="header">
+        <div class="logo">
+            <a ui-sref="dashboard">
+                 <img ng-src="[[app_domain]]/public/admin/img/logo.jpg"/>
+            </a>
+        </div>
+        <div class="title">
+            [[$root.selectedApp.name]]
+        </div>
+        <div class="tabs">
+            <ul>
+                <li class="active"><span class="ic ic-core"></span> Info</li>
+                <li ui-sref="push($root.selectedApp)"><span class="ic ic-push"></span>Push</li>
+                <li ui-sref="setting($root.selectedApp)"><span class="ic ic-settings"></span>Setting</li>
+            </ul>
+        </div>
+        <div class="user" ng-click="_showMenu=2" click-outside="_showMenu=_showMenu-1">
+            <span menu-id="user-menu"><img class="avatar" src="[[$root.user.avatar]]">[[$root.user.name]]</span>
+            <div id="user-menu" class="menu" ng-class="{active: (_showMenu>0)}">
+                <ul>
+                    <li><a href="[[logoutUrl]]">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+-->
+<div id="header">
+    <div class="header-inside">
+        <h1 class="logo"><a href="#" ng-click="dashboardRD()">Zalo</a></h1>
+
+        <a class='dropdown-button btn' href='' ng-click="change()"><p>[[$root.selectedApp.name]]</p><span>PROD</span></a>
+
+        <ul style="display: none; width: 200px; position: absolute; top: 0px; left: 46px; opacity: 1;" class='dropdown-content' ng-class="{showhint: dropdown.active === true}">
+
+            <li ng-repeat="app in appss" style="border-bottom: 1px solid #4eb5e9;"><a href="#!" ui-sref="appInfo({id: app.id})" ng-click="change()"><p>[[app.name]]</p><span>PROD</span></a></li>
+
+            <li ng-repeat="app in appss" style="border-bottom: 1px solid #4eb5e9;"><a href="#!" ui-sref="appInfo({id: app.id})" ng-click="change()"><p>[[app.name]]</p><span>PROD</span></a></li>
+
+            <li ng-repeat="app in appss" style="border-bottom: 1px solid #4eb5e9;"><a href="#!" ui-sref="appInfo({id: app.id})" ng-click="change()"><p>[[app.name]]</p><span>PROD</span></a></li>
+
+        </ul>
+
+        <div class="wrapper">
+            <ul class="menu" style="text-align: center;">
+                <li><a href="#" class="active"><span class="ic ic-core"></span>Core</a></li>
+                <li ui-sref="push($root.selectedApp)"><a href="#"><span class="ic ic-push"></span>Push</a></li>
+                <li ui-sref="setting($root.selectedApp)"><a href="#"><span class="ic ic-settings"></span>Settings</a></li>
+            </ul>
+        </div>
+        <div class="user"><a href="#"><img ng-src="[[$root.user.avatar]]" width="32" height="32">[[$root.user.name]]</a></div>
+        <div style="position: absolute;right: 5px;top: 0;"><a href="[[logoutUrl]]"><img  style="margin-top: 5px;" ng-src="[[app_domain]]/public/admin/img/logout-32.png"></a></div>
+
+    </div>
+</div>
+<!--End header-->
+
+<div id="menu-right">
+    <ul class="collapsible" data-collapsible="accordion">
+        <li ng-class="{active: tab == 'devices'}">
+            <div class="collapsible-header" ng-class="{active: tab == 'devices'}" ng-click="tab = 'devices'"><span class="ic ic-data"></span>Devices</div>
+        </li>
+        <li ng-class="{active: tab == 'scheduled'}">
+            <div class="collapsible-header" ng-class="{active: tab == 'scheduled'}" ng-click="tab = 'scheduled'"><span class="ic ic-cloudcode"></span>Scheduled</div>          
+        </li>
+        <li ng-class="{active: tab == 'history'}" ng-click="tab = 'history'">
+            <div class="collapsible-header" ng-class="{active: tab == 'history'}" ng-click="tab = 'history'"><span class="ic ic-webhooks"></span>History</div>
+        </li>
+    </ul>
+</div>
+<!--End menu-right-->
+
+
+<div ng-include src="'/public/admin/html/device.html'"></div>
+<div ng-include src="'/public/admin/html/scheduled.html'"></div>
+<div ng-include src="'/public/admin/html/history.html'"></div>
+
+<div class="clear"></div>
+
+<script>
+    var s = $(window).height() - 99;;  
+    $( ".box" ).css({"height": s});
+</script>
+
+</div>

@@ -1,0 +1,205 @@
+<div ng-controller="createPush">
+
+    <div id="header">
+        <div class="header-inside">
+            <h1 class="logo"><a href="#" ng-click="dashboardRD()">Zalo</a></h1>
+            <a class='dropdown-button btn' href='#' data-activates='dropdown1' ng-click="change()"><p>[[$root.selectedApp.name]]</p><span>PROD</span></a>
+           
+              <ul style="display: none; width: 200px; position: absolute; top: 0px; left: 46px; opacity: 1;" class='dropdown-content' ng-class="{showhint: dropdown.active === true}">
+            
+                <li ng-repeat="app in appss" style="border-bottom: 1px solid #4eb5e9;"><a href="#!" ui-sref="appInfo({id: app.id})" ng-click="change()"><p>[[app.name]]</p><span>PROD</span></a></li>
+    
+               <li ng-repeat="app in appss" style="border-bottom: 1px solid #4eb5e9;"><a href="#!" ui-sref="appInfo({id: app.id})" ng-click="change()"><p>[[app.name]]</p><span>PROD</span></a></li>
+
+                <li ng-repeat="app in appss" style="border-bottom: 1px solid #4eb5e9;"><a href="#!" ui-sref="appInfo({id: app.id})" ng-click="change()"><p>[[app.name]]</p><span>PROD</span></a></li>
+
+            </ul>
+
+            <div class="wrapper" style="text-align: center;">
+                <ul class="menu">
+                    <li ui-sref="appInfo($root.selectedApp)"><a href="#"><span class="ic ic-core"></span>Core</a></li>
+                    <li><a href="#" class="active"><span class="ic ic-push"></span>Push</a></li>
+                    <li ui-sref="setting($root.selectedApp)"><a href="#"><span class="ic ic-settings"></span>Settings</a></li>
+                </ul>
+            </div>
+            
+            <div class="user">
+                <a href="#"><img ng-src="[[$root.user.avatar]]" width="32" height="32">[[$root.user.name]]</a>
+            </div>
+            <div style="position: absolute;right: 5px;top: 0;">
+                <a href="[[logoutUrl]]"><img  style="margin-top: 5px;" ng-src="[[app_domain]]/public/admin/img/logout-32.png"></a>
+            </div>
+        </div>
+    </div>
+    <!--End header-->
+
+    <div id="menu-right">
+        <ul class="collapsible" data-collapsible="accordion">
+            <li ng-class="{active: tab == 'devices'}">
+                <div class="collapsible-header" ng-class="{active: tab == 'devices'}" ui-sref="appInfo($root.selectedApp)" ng-click="tab = 'devices'"><span class="ic ic-data"></span>Devices</div>
+            </li>
+            <li ng-class="{active: tab == 'scheduled'}">
+                <div class="collapsible-header" ng-class="{active: tab == 'scheduled'}" ui-sref="appInfo($root.selectedApp)" ng-click="tab = 'scheduled'"><span class="ic ic-cloudcode"></span>Scheduled</div>          
+            </li>
+            <li ng-class="{active: tab == 'history'}" ng-click="tab = 'history'">
+                <div class="collapsible-header" ng-class="{active: tab == 'history'}" ui-sref="appInfo($root.selectedApp)" ng-click="tab = 'history'"><span class="ic ic-webhooks"></span>History</div>
+            </li>
+        </ul>
+    </div>
+    <!--End menu-right-->
+
+
+    <div class="content-full">
+        <div class="wrapper">
+            <div class="row-button clearfix" style="border-bottom:#03a6fa solid 1px;">
+                <h3>Send a push notifications</h3>
+                <a href="#" class="btn btn-stroke send-push back" ng-click="dashboardRD()">Back</a>         
+            </div>
+            <div class="line_tran"></div>
+            <ul class="list-noti">
+                <li>
+                    <div class="title-app">
+                        <h2>Choose Platform</h2>
+                        <p class="time">Send to everyone, or use segments to choose the right users.</p>
+                    </div>
+
+                    <table class="bordered">
+                        <thead>
+                            <tr>
+                                <th class="odd">Choose</th>
+                                <th>audience</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td class="odd" width="10%" >
+                                    <p style="text-align: center;">
+                                      <input class="with-gap" name="group1" type="radio" id="test3" checked="true" />
+                                      <label for="test3" ng-click="data.platform = 'android';getDeviceCount();"></label>
+                                  </p>
+                              </td>
+                              <td><h3><span class="ic ic-android"></span>Android</h3></td>
+                          </tr>
+                          <tr>
+                            <td class="odd" width="10%">
+                                <p style="text-align: center;">
+                                  <input class="with-gap" name="group1" type="radio" id="test2"  />
+                                  <label for="test2" ng-click="data.platform = 'ios'; getDeviceCount();"></label>
+                              </p>
+                          </td>
+                          <td><h3><span class="ic ic-ios"></span>IOS</h3></td>
+                      </tr>
+
+                  </tbody>
+              </table>
+          </li>
+
+          <li>
+            <div class="title-app">
+                <h2>Filters</h2>
+                <p class="time">This will be sent to [[deviceCount]] devices.</p>
+            </div>
+            <ul class="list-control">
+
+            <li style="padding: 5px;" class="clearfix">
+                <table border="0">
+                        <tbody>
+                            <tr class="noBorder" ng-repeat="(key, val) in filter">
+                                <td width="30%" style="padding-left: 30px;">
+                                        [[PROPERTIES[key] ]] equals :
+                                </td>
+                                <td>
+                                     <tags-input ng-model="val" placeholder="add here" min-length="1" on-tag-added="getDeviceCount()" on-tag-removed="getDeviceCount()"></tags-input>
+                                </td>
+                                <td>
+                                     <button class="btn remove" style="width:25px;height: 25px;padding:0px;line-height:25px;" ng-click="removeFilterProperty(key)">X</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                </table>   
+            </li>
+
+            <li style="padding: 5px;" ng-show="filterOptions.length > 0">
+                    <table border="0">
+                        <tbody>
+                            <tr class="noBorder">
+                                <td width="30%" style="padding-left: 30px;">
+                                        Select a property : 
+                                </td>
+                                <td>
+                                    <select ng-model="selectedProperty" ng-change="addFilter(selectedProperty)" style="font-size: 15px; width: 250px;">
+                                            <option ng-repeat="option in filterOptions" value="[[option]]" >[[ PROPERTIES[option] ]]</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>   
+            </li>
+
+        </ul>
+    </li><!--end Filter-->
+
+    <li>
+        <div class="title-app">
+            <h2>Choose a Delivery Time</h2>
+            <p class="time">We can send the campain immediately, or any time the next 2 weeks</p>
+        </div>
+        <ul class="list-control">
+            <li class="clearfix">
+                <div class="chosse">
+                    <a href="" class="now" ng-click="data.pushNow = true" ng-class="{selected: (data.pushNow == true)}"><span></span>Now</a>
+                    <span>or</span>
+                    <a href="" class="later" ng-click="data.pushNow = false" ng-class="{selected: (data.pushNow == false)}"><span></span>Later</a>
+                </div>
+            </li>
+
+            <li style="padding: 5px;" ng-show="data.pushNow == false">
+                    <table border="0">
+                        <tbody>
+                            <tr class="noBorder">
+                                <td width="30%" style="padding-left: 50px;">
+                                        Select DateTime : 
+                                </td>
+                                <td>
+                                    <input id="time-to-push" type="text" style="font-size: 15px;width:270px;" readonly='true' />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>   
+            </li>
+        </ul>
+    </li>
+    <li>
+        <div class="title-app">
+            <h2>Write Your Message</h2>
+            <p class="time">The best campains use short and direct messaging</p>
+        </div>
+        <ul class="list-control">
+            <li>
+                <input ng-model="data.title" size="35px" type="text" placeholder="Your title here..." style="margin-bottom: 10px;font-size:15px;" />
+                <textarea ng-model="data.msg" placeholder="Your message here..."></textarea>
+                <p class="length">[[data.msg.length]]</p>
+                <a href="" id="icon" class="btn send-push back" ng-click="push()"> Push</a>      
+            </li>     
+        </ul>
+    </li>
+</ul>
+</div>
+</div>
+<!--End send push-->
+
+<div id="footer">
+    <ul>
+        <li><a href="#">Docs</a></li>
+        <li><a href="#">Billing</a></li>
+        <li><a href="#">Downloads</a></li>
+        <li><a href="#">Help</a></li>
+        <li><a href="#">Status</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Zalo</a></li>
+    </ul>
+    <div class="clear"></div>
+</div><!--end footer-->
+
+</div>

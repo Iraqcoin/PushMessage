@@ -3,7 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/hoaibao/VNG/SVN/PushMessage/PushEventMessage/PushEventMessage/src/com/vng/zing/pusheventmessage/admin/view/layout.xtm</file>
+            <file>file:/root/Project/SVN/PushMessage/PushEventMessage/PushEventMessage/src/com/vng/zing/pushnotification/service/impl/AbstractService.java</file>
+            <file>file:/root/Project/SVN/PushMessage/PushEventMessage/PushEventMessage/src/com/vng/zing/pushnotification/service/impl/AndroidPushService.java</file>
+            <file>file:/root/Project/SVN/PushMessage/PushEventMessage/PushEventMessage/src/com/vng/zing/pusheventmessage/model/PushNotiModel.java</file>
+            <file>file:/root/Project/SVN/PushMessage/PushEventMessage/PushEventMessage/src/com/vng/zing/pusheventmessage/app/MainApp.java</file>
+            <file>file:/root/Project/SVN/PushMessage/PushEventMessage/PushEventMessage/src/com/vng/zing/pusheventmessage/servers/HServers.java</file>
+            <file>file:/root/Project/SVN/PushMessage/PushEventMessage/PushEventMessage/src/com/vng/zing/pusheventmessage/admin/AdminServiceServlet.java</file>
+            <file>file:/root/Project/SVN/PushMessage/PushEventMessage/PushEventMessage/src/com/vng/zing/pushnotification/service/ServiceFactory.java</file>
+            <file>file:/root/Project/SVN/PushMessage/PushEventMessage/PushEventMessage/src/com/vng/zing/pusheventmessage/admin/common/Params.java</file>
+            <file>file:/root/Project/SVN/PushMessage/PushEventMessage/PushEventMessage/src/com/vng/zing/pushnotification/service/Service.java</file>
+            <file>file:/root/Project/SVN/PushMessage/PushEventMessage/PushEventMessage/src/com/vng/zing/pusheventmessage/admin/handler/PushHandler.java</file>
+            <file>file:/root/Project/SVN/PushMessage/PushEventMessage/PushEventMessage/src/com/vng/zing/pushnotification/service/RequestMessage.java</file>
+            <file>file:/root/Project/SVN/PushMessage/PushEventMessage/PushEventMessage/src/com/vng/zing/pushnotification/dao/impl/DeviceHandler.java</file>
+            <file>file:/root/Project/SVN/PushMessage/PushEventMessage/PushEventMessage/src/com/vng/zing/pusheventmessage/service/SvTaskScheduler.java</file>
         </group>
     </open-files>
 </project-private>

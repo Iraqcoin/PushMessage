@@ -116,14 +116,11 @@ public class NotiInfoModel extends BaseModel {
             LOGGER.warn("Decrypt SdkId fail! " + e.getMessage());
             return;
         }
-
         if (sdkInfos == null) {
             responseJSON(INVALID_REQUEST_RESULT, resp);
             return;
         }
-
         String pkg = Utils.getFirstNotEmptyValue(packageName, bundleId, guid);
-
         saveToken(resp, sdkInfos, appVersion, token, pkg, zaloId, appUser, sdkVersion);
     }
 
